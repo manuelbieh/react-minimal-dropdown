@@ -1,0 +1,20 @@
+{
+    "presets": [
+        "es2015",
+        "react"
+    ],
+    "plugins": [
+        "transform-object-rest-spread",
+        "transform-class-properties"
+    ],
+    "ignore": [
+        "node_modules/**"
+    ],
+    "env": {
+        "production": {
+            "plugins": [
+                "transform-react-remove-prop-types"
+            ]
+        }
+    }
+}

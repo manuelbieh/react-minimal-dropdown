@@ -1,0 +1,103 @@
+.wrapper {
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+.wrapper.open .content {
+    display: block;
+}
+
+.wrapper.closed .content {
+    display: none;
+}
+
+.wrapper .content {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    position: absolute;
+    z-index: 16;
+}
+
+.wrapper .trigger {
+    z-index: 1;
+}
+
+.wrapper .inner {
+    background: white;
+    border-radius: inherit;
+    margin: -8px;
+    max-height: 30vh;
+    min-width: 170px;
+    max-width: calc(100vh - 64px);
+    /*overflow: auto;*/
+    padding: 8px;
+    position: relative;
+    z-index: 16;
+}
+
+.beak .content:before {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+    background: white;
+    content: "";
+    height: 16px;
+    position: absolute;
+    transform: rotate(45deg);
+    width: 16px;
+}
+
+.top .content {
+    /*bottom: 100%;*/
+}
+
+.top.beak .content {
+    margin-bottom: 16px;
+}
+
+.top.beak .content:before {
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    bottom: -9px;
+    left: calc(50% - 9px);
+}
+
+.right.beak .content {
+    margin-left: 18px;
+}
+
+.right.beak .content:before {
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    top: calc(50% - 9px);
+    left: -9px;
+}
+
+.bottom .content {
+    /*top: 100%;*/
+}
+
+.bottom.beak .content {
+    margin-top: 18px;
+}
+
+.bottom.beak .content:before {
+    border-left-width: 1px;
+    border-top-width: 1px;
+    top: -9px;
+    left: calc(50% - 9px);
+}
+
+.left.beak .content {
+    margin-right: 18px;
+}
+
+.left.beak .content:before {
+    border-right-width: 1px;
+    border-top-width: 1px;
+    top: calc(50% - 9px);
+    right: -9px;
+    left: auto;
+}

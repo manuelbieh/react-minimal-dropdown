@@ -1,0 +1,37 @@
+{
+  "name": "react-minimal-dropdown",
+  "version": "0.0.0",
+  "description": "Simple, minimal and unobtrusive dropdown for React",
+  "main": "lib/index.js",
+  "scripts": {
+    "develop": "./node_modules/.bin/webpack-dev-server --config webpack.config.babel.js/dev.babel.js --hot --inline --watch ",
+    "build": "./node_modules/.bin/webpack --config webpack.config.babel.js/dev.babel.js -p"
+  },
+  "keywords": [
+    "react",
+    "dropdown"
+  ],
+  "author": "Manuel Bieh <node@manuelbieh.de> (https://github.com/manuelbieh)",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.3.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
+    "classnames": "^2.2.5",
+    "css-loader": "^0.28.0",
+    "eslint": "^3.19.0",
+    "eslint-config-wiremore": "^1.0.3",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "flow-bin": "^0.43.1",
+    "prop-types": "^15.5.6",
+    "react": "^15.5.3",
+    "react-dom": "^15.5.3",
+    "style-loader": "^0.16.1",
+    "webpack": "^2.3.3",
+    "webpack-dev-server": "^2.4.2"
+  }
+}
