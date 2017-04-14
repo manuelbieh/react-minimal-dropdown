@@ -17,13 +17,14 @@ export default Object.assign({}, config, {
                 exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
-                    use: [{ loader: 'css-loader', options: { modules: true, localIdentName: '[name]__[local]' }}]
+                    use: [{ loader: 'css-loader', options: { modules: true }}]
                 })
             },
         ]
     },
     externals: {
         'react': 'React',
-        'react-dom': 'ReactDOM'
+        'react-dom': 'ReactDOM',
+        'prop-types': 'PropTypes'
     }
 });

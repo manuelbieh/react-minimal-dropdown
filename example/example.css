@@ -1,6 +1,16 @@
-body {
-    font-family: Arial, Helvetica, Sans-Serif;
-    line-height: 1.5;
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    /*padding-bottom: 16px;*/
+    padding-top: 40px;
+}
+
+header > * {
+    position: relative;
 }
 
 input {
@@ -8,7 +18,7 @@ input {
 }
 
 :global(.ReactMinimalDropdown) {
-    /*outline: 1px solid red;*/
+    outline: 1px solid red;
     display: inline-block;
 }
 
@@ -20,6 +30,7 @@ input {
     padding: 8px;
     margin: 24px;
     /*margin-top: -57px;*/
+    outline: 1px solid blue;
 }
 
 :global(.ReactMinimalDropdown__Trigger:hover) {
@@ -36,7 +47,10 @@ input {
 }
 
 .wrapper {
-    width: 640px;
+    box-sizing: border-box;
     max-width: 100%;
     margin: auto;
+    margin-top: 64px;
+    padding: 0 12px;
+    width: 640px;
 }

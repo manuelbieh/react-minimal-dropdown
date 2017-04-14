@@ -49,55 +49,58 @@
     width: 16px;
 }
 
-.top .content {
-    /*bottom: 100%;*/
-}
-
-.top.beak .content {
+.top.beak > .content {
     margin-bottom: 16px;
 }
 
-.top.beak .content:before {
+.top.beak > .content:before {
     border-right-width: 1px;
     border-bottom-width: 1px;
     bottom: -9px;
     left: calc(50% - 9px);
 }
 
-.right.beak .content {
+.right.beak > .content {
     margin-left: 18px;
 }
 
-.right.beak .content:before {
+.right.beak > .content:before {
     border-left-width: 1px;
     border-bottom-width: 1px;
     top: calc(50% - 9px);
     left: -9px;
 }
 
-.bottom .content {
-    /*top: 100%;*/
-}
-
-.bottom.beak .content {
+.bottom.beak > .content {
     margin-top: 18px;
 }
 
-.bottom.beak .content:before {
+.bottom.beak > .content:before {
     border-left-width: 1px;
     border-top-width: 1px;
     top: -9px;
     left: calc(50% - 9px);
 }
 
-.left.beak .content {
+.left.beak > .content {
     margin-right: 18px;
 }
 
-.left.beak .content:before {
+.left.beak > .content:before {
     border-right-width: 1px;
     border-top-width: 1px;
     top: calc(50% - 9px);
     right: -9px;
     left: auto;
 }
+
+.edge--left.beak > .content:before {
+    left: 10%;
+}
+.edge--right.beak > .content:before {
+    left: auto;
+    right: 10%;
+}
+.edge--bottom {}
+.edge--top {}
+.edge--center {}

@@ -6,7 +6,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 import { findDOMNode } from 'react-dom';
-// import classNames from 'classnames';
+
 import Trigger from './Trigger';
 import Content from './Content';
 
@@ -29,11 +29,19 @@ export class Dropdown extends React.Component {
             'bottom',
             'left'
         ]),
+        edge: PropTypes.oneOf([
+            'top',
+            'right',
+            'bottom',
+            'left',
+            'center'
+        ]),
         beak: PropTypes.bool,
     };
 
     static defaultProps = {
-        direction: 'bottom'
+        direction: 'bottom',
+        edge: 'center'
     };
 
     static Trigger = Trigger;
@@ -125,10 +133,49 @@ export class Dropdown extends React.Component {
         // console.log('CELPOS', Top, Right, Bottom, Left);
     }
 
+    get wrapperBounds() {
+        return this.wrapperEl.getBoundingClientRect();
+    }
+
+    get triggerBounds() {
+        return this.triggerEl.DOMNode.getBoundingClientRect();
+    }
+
+    get contentBounds() {
+        this.contentEl.DOMNode.style.display = 'block';
+        const bounds = this.contentEl.DOMNode.getBoundingClientRect();
+        this.contentEl.DOMNode.style.display = null;
+        return bounds;
+    }
+
+    getHorizontalEdgePosition(edge) {
+
+        if (edge === 'left') {
+            return this.triggerBounds.left - this.wrapperBounds.left;
+        } else if (edge === 'right') {
+            return (this.triggerBounds.right - this.wrapperBounds.left) - this.contentBounds.width;
+        } else {
+            return (this.triggerBounds.left - this.wrapperBounds.left - (this.contentBounds.width / 2)) + this.triggerBounds.width / 2;
+        }
+
+    }
+
+    getVerticalEdgePosition(edge) {
+
+        if (edge === 'top') {
+            return this.triggerBounds.top - this.wrapperBounds.top;
+        } else if (edge === 'bottom') {
+            return (this.triggerBounds.bottom - this.wrapperBounds.top) - this.contentBounds.height;
+        } else {
+            return (this.triggerBounds.top - this.wrapperBounds.top - (this.contentBounds.height / 2)) + this.triggerBounds.height / 2;
+        }
+
+    }
+
+
     calculatePosition() {
-        // findDOMNode(this.triggerEl)
-        // findDOMNode(this.triggerEl)
-        const { direction, gap=0 } = this.props;
+
+        const { direction, edge, gap=0 } = this.props;
         const wrapperBounds = this.wrapperEl.getBoundingClientRect();
         const triggerBounds = this.triggerEl.DOMNode.getBoundingClientRect();
         this.contentEl.DOMNode.style.display = 'block';
@@ -136,25 +183,31 @@ export class Dropdown extends React.Component {
         this.contentEl.DOMNode.style.display = null;
 
         if (direction === 'top') {
+
+            const edgePos = this.getHorizontalEdgePosition(edge);
+
             this.setContentPosition({
                 bottom: wrapperBounds.bottom - triggerBounds.bottom + triggerBounds.height + gap,
-                left: (triggerBounds.left - wrapperBounds.left - (contentBounds.width / 2)) + triggerBounds.width / 2
+                // left: (triggerBounds.left - wrapperBounds.left - (contentBounds.width / 2)) + triggerBounds.width / 2
+                left: edgePos
             });
+
         } else if (direction === 'left') {
             this.setContentPosition({
                 right: wrapperBounds.right - triggerBounds.right + triggerBounds.width + gap,
-                top: (triggerBounds.top - wrapperBounds.top + (triggerBounds.height / 2)) - (contentBounds.height / 2)
+                // top: (triggerBounds.top - wrapperBounds.top + (triggerBounds.height / 2)) - (contentBounds.height / 2)
             });
         } else if (direction === 'right') {
             this.setContentPosition({
                 left: triggerBounds.right - wrapperBounds.left + gap,
-                top: (triggerBounds.top - wrapperBounds.top + (triggerBounds.height / 2)) - (contentBounds.height / 2)
+                // top: (triggerBounds.top - wrapperBounds.top + (triggerBounds.height / 2)) - (contentBounds.height / 2)
             });
         } else {
+            const edgePos = this.getHorizontalEdgePosition(edge);
             this.setContentPosition({
-                // top: triggerBounds.bottom - wrapperBounds.bottom + triggerBounds.height + gap,
+                // left: (triggerBounds.left - wrapperBounds.left - (contentBounds.width / 2)) + triggerBounds.width / 2
                 top: triggerBounds.top - wrapperBounds.top + triggerBounds.height + gap,
-                left: (triggerBounds.left - wrapperBounds.left - (contentBounds.width / 2)) + triggerBounds.width / 2
+                left: edgePos
             });
         }
 
@@ -190,19 +243,31 @@ export class Dropdown extends React.Component {
 
     render() {
 
+        const { show } = this.state;
         const {
             children,
             className='ReactMinimalDropdown',
             direction='bottom',
+            edge='center',
             beak
         } = this.props;
 
-        const { show } = this.state;
+        const classNames = [
+            css.wrapper,
+            beak && css.beak,
+            css[direction],
+            css[`edge--${edge}`],
+            css[show ? 'open' : 'closed'],
+            className,
+            `${className}--${direction}`
+        ]
+        .filter((name) => typeof name !== 'undefined')
+        .join(' ');
 
         return (
             <div
                 ref={(node) => { this.wrapperEl = node; }}
-                className={`${css.wrapper} ${beak && css.beak || ''} ${css[direction]} ${css[show ? 'open' : 'closed']} ${className} ${className}--${direction}`}>
+                className={ classNames }>
                 {
                     React.Children.map(children, (child) => {
 
