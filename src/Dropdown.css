@@ -17,6 +17,7 @@
     border-radius: 4px;
     padding: 8px;
     position: absolute;
+    text-align: left;
     z-index: 16;
 }
 
@@ -50,46 +51,46 @@
 }
 
 .top.beak > .content {
-    margin-bottom: 16px;
+    margin-bottom: 13px;
 }
 
 .top.beak > .content:before {
     border-right-width: 1px;
     border-bottom-width: 1px;
     bottom: -9px;
-    left: calc(50% - 9px);
+    left: calc(50% - 8px);
 }
 
 .right.beak > .content {
-    margin-left: 18px;
+    margin-left: 13px;
 }
 
 .right.beak > .content:before {
     border-left-width: 1px;
     border-bottom-width: 1px;
-    top: calc(50% - 9px);
+    top: calc(50% - 8px);
     left: -9px;
 }
 
 .bottom.beak > .content {
-    margin-top: 18px;
+    margin-top: 13px;
 }
 
 .bottom.beak > .content:before {
     border-left-width: 1px;
     border-top-width: 1px;
     top: -9px;
-    left: calc(50% - 9px);
+    left: calc(50% - 8px);
 }
 
 .left.beak > .content {
-    margin-right: 18px;
+    margin-right: 13px;
 }
 
 .left.beak > .content:before {
     border-right-width: 1px;
     border-top-width: 1px;
-    top: calc(50% - 9px);
+    top: calc(50% - 8px);
     right: -9px;
     left: auto;
 }
@@ -101,6 +102,12 @@
     left: auto;
     right: 10%;
 }
-.edge--bottom {}
-.edge--top {}
-.edge--center {}
+
+.edge--bottom.beak > .content:before {
+    top: auto;
+    bottom: calc(15% + 8px);
+}
+.edge--top.beak > .content:before {
+    top: calc(15% + 8px);
+    bottom: auto;
+}

@@ -5,8 +5,6 @@ if (process.env.NODE_ENV !== 'production') {
     PropTypes = require('prop-types');
 }
 
-import { findDOMNode } from 'react-dom';
-
 import Trigger from './Trigger';
 import Content from './Content';
 
@@ -19,10 +17,13 @@ export class Dropdown extends React.Component {
         className: PropTypes.string,
         show: PropTypes.bool,
         gap: PropTypes.number,
+        adjust: PropTypes.bool,
         onBeforeOpen: PropTypes.func,
         onBeforeClose: PropTypes.func,
         onAfterOpen: PropTypes.func,
         onAfterClose: PropTypes.func,
+        ignoreResize: PropTypes.bool,
+        ignoreScroll: PropTypes.bool,
         direction: PropTypes.oneOf([
             'top',
             'right',
@@ -51,9 +52,11 @@ export class Dropdown extends React.Component {
         super(props);
         this.state = {
             show: props.show,
+            direction: props.direction
         };
         this.closeOnClick = this.closeOnClick.bind(this);
         this.closeOnEsc = this.closeOnEsc.bind(this);
+        this.calculatePosition = this.calculatePosition.bind(this);
         this.show = this.show.bind(this);
         this.hide = this.hide.bind(this);
         this.toggle = this.toggle.bind(this);
@@ -75,15 +78,28 @@ export class Dropdown extends React.Component {
     }
 
     addEvents() {
+
         window.addEventListener('click', this.closeOnClick);
         window.addEventListener('touchstart', this.closeOnClick);
         window.addEventListener('keydown', this.closeOnEsc);
+
+        if (!this.props.ignoreResize) {
+            window.addEventListener('resize', this.calculatePosition);
+        }
+
+        if (!this.props.ignoreScroll) {
+            window.addEventListener('scroll', this.calculatePosition);
+        }
+
     }
 
     removeEvents() {
         window.removeEventListener('click', this.closeOnClick);
         window.removeEventListener('touchstart', this.closeOnClick);
         window.removeEventListener('keydown', this.closeOnEsc);
+        window.removeEventListener('resize', this.calculatePosition);
+        window.removeEventListener('scroll', this.calculatePosition);
+
     }
 
     closeOnEsc(e) {
@@ -93,8 +109,7 @@ export class Dropdown extends React.Component {
     }
 
     closeOnClick(e) {
-        const self = findDOMNode(this);
-        if (e.target !== self && !self.contains(e.target) && this.state.show) {
+        if (e.target !== this.wrapperEl && !this.wrapperEl.contains(e.target) && this.state.show) {
             this.hide();
         }
     }
@@ -124,13 +139,10 @@ export class Dropdown extends React.Component {
     }
 
     setContentPosition({ top='auto', right='auto', bottom='auto', left='auto'}={}) {
-        // console.log('TRBL:', top, right, bottom, left);
-        this.contentEl.DOMNode.style.top = isNaN(top) && top !== 'auto' ? top : `${top}px`;
-        this.contentEl.DOMNode.style.right = isNaN(right) && right !== 'auto' ? right : `${right}px`;
-        this.contentEl.DOMNode.style.bottom = isNaN(bottom) && bottom !== 'auto' ? bottom : `${bottom}px`;
-        this.contentEl.DOMNode.style.left = isNaN(left) && left !== 'auto' ? left : `${left}px`;
-        // const { top: Top, right: Right, bottom: Bottom, left: Left } = this.contentEl.DOMNode.style;
-        // console.log('CELPOS', Top, Right, Bottom, Left);
+        this.contentEl.DOMNode.style.top = !top || isNaN(top) && top !== 'auto' ? top : `${top}px`;
+        this.contentEl.DOMNode.style.right = !right || isNaN(right) && right !== 'auto' ? right : `${right}px`;
+        this.contentEl.DOMNode.style.bottom = !bottom || isNaN(bottom) && bottom !== 'auto' ? bottom : `${bottom}px`;
+        this.contentEl.DOMNode.style.left = !left || isNaN(left) && left !== 'auto' ? left : `${left}px`;
     }
 
     get wrapperBounds() {
@@ -148,71 +160,177 @@ export class Dropdown extends React.Component {
         return bounds;
     }
 
-    getHorizontalEdgePosition(edge) {
+    getDirectionMode() {
+        return ['left', 'right'].includes(this.props.direction) ? 'horizontal' : 'vertical';
+    }
+
+    getHorizontalEdgePosition(edge=this.props.edge) {
 
         if (edge === 'left') {
             return this.triggerBounds.left - this.wrapperBounds.left;
         } else if (edge === 'right') {
             return (this.triggerBounds.right - this.wrapperBounds.left) - this.contentBounds.width;
-        } else {
-            return (this.triggerBounds.left - this.wrapperBounds.left - (this.contentBounds.width / 2)) + this.triggerBounds.width / 2;
         }
+
+        return (this.triggerBounds.left - this.wrapperBounds.left - (this.contentBounds.width / 2)) + this.triggerBounds.width / 2;
 
     }
 
-    getVerticalEdgePosition(edge) {
+    getVerticalEdgePosition(edge=this.props.edge) {
 
         if (edge === 'top') {
             return this.triggerBounds.top - this.wrapperBounds.top;
         } else if (edge === 'bottom') {
             return (this.triggerBounds.bottom - this.wrapperBounds.top) - this.contentBounds.height;
-        } else {
-            return (this.triggerBounds.top - this.wrapperBounds.top - (this.contentBounds.height / 2)) + this.triggerBounds.height / 2;
+        }
+
+        return (this.triggerBounds.top - this.wrapperBounds.top - (this.contentBounds.height / 2)) + this.triggerBounds.height / 2;
+
+    }
+
+    getHorizontalPosition(direction=this.props.direction, gap=this.props.gap) {
+
+        const { wrapperBounds, triggerBounds } = this;
+
+        if (direction === 'left') {
+            return {
+                right: wrapperBounds.right - triggerBounds.right + triggerBounds.width + (gap || 0),
+                left: null
+            };
+
+        }
+
+        if (direction === 'right') {
+            return {
+                left: triggerBounds.right - wrapperBounds.left + (gap || 0),
+                right: null
+            };
+        }
+
+        return {};
+
+    }
+
+    getVerticalPosition(direction=this.props.direction, gap=this.props.gap) {
+
+        const { wrapperBounds, triggerBounds } = this;
+
+        if (direction === 'top') {
+            return {
+                bottom: wrapperBounds.bottom - triggerBounds.bottom + triggerBounds.height + (gap || 0),
+                top: null
+            };
+        }
+
+        if (direction === 'bottom') {
+            return {
+                top: triggerBounds.top - wrapperBounds.top + triggerBounds.height + (gap || 0),
+                bottom: null
+            };
+        }
+
+        return {};
+
+    }
+
+    shouldContentBeAdjusted(direction=this.props.direction) {
+
+        const { contentBounds } = this;
+
+        if (direction === 'left') {
+            if ((contentBounds.left < 0 && contentBounds.right < document.body.clientWidth) && this.props.adjust) {
+                return true;
+            }
+        }
+
+        if (direction === 'right') {
+            if (contentBounds.right > document.body.clientWidth && contentBounds.left >= 0 && this.props.adjust) {
+                return true;
+            }
+        }
+
+        const clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        // console.log('CLIENT HEIGHT:', clientHeight);
+        // console.log('CONTBOUND:', contentBounds.top, contentBounds.bottom);
+
+        if (direction === 'top') {
+            if (contentBounds.top < 0 && contentBounds.bottom < clientHeight && this.props.adjust) {
+                return true;
+            }
+        }
+
+        if (direction === 'bottom') {
+            if (contentBounds.bottom > clientHeight && contentBounds.top < clientHeight && this.props.adjust) {
+                return true;
+            }
         }
 
     }
 
+    adjustContentPosition(direction=this.props.direction) {
+
+        if (this.props.adjust && this.shouldContentBeAdjusted()) {
+
+            const opposites = {
+                left: 'right',
+                right: 'left',
+                top: 'bottom',
+                bottom: 'top'
+            };
+
+            const opposite = opposites[direction];
+
+            const oppositePosition = Object.assign({},
+                this.getDirectionMode() === 'horizontal'
+                ? Object.assign({}, this.getHorizontalPosition(opposite), { top: this.getVerticalEdgePosition() })
+                : Object.assign({}, this.getVerticalPosition(opposite), { left: this.getHorizontalEdgePosition() })
+            );
+
+            this.setState({
+                direction: opposite
+            });
+
+            // content is outside of the viewport. try opposite site
+            this.setContentPosition(oppositePosition);
+
+            if (this.shouldContentBeAdjusted(opposite)) {
+
+                const restoredPosition = Object.assign({},
+                    this.getDirectionMode() === 'horizontal'
+                    ? Object.assign({}, this.getHorizontalPosition(), { top: this.getVerticalEdgePosition() })
+                    : Object.assign({}, this.getVerticalPosition(), { left: this.getHorizontalEdgePosition() })
+                );
+
+                this.setState({
+                    direction: direction
+                });
+
+                // ... content is still not visible, reset to original direction
+                this.setContentPosition(restoredPosition);
+
+            }
+
+        }
+
+    }
 
     calculatePosition() {
 
-        const { direction, edge, gap=0 } = this.props;
-        const wrapperBounds = this.wrapperEl.getBoundingClientRect();
-        const triggerBounds = this.triggerEl.DOMNode.getBoundingClientRect();
-        this.contentEl.DOMNode.style.display = 'block';
-        const contentBounds = this.contentEl.DOMNode.getBoundingClientRect();
-        this.contentEl.DOMNode.style.display = null;
+        const position = Object.assign({},
+            this.getDirectionMode() === 'horizontal'
+            ? Object.assign({}, { top: this.getVerticalEdgePosition() }, this.getHorizontalPosition())
+            : Object.assign({}, { left: this.getHorizontalEdgePosition() }, this.getVerticalPosition())
+        );
 
-        if (direction === 'top') {
+        this.setState({
+            direction: this.props.direction
+        });
 
-            const edgePos = this.getHorizontalEdgePosition(edge);
+        this.setContentPosition(position);
 
-            this.setContentPosition({
-                bottom: wrapperBounds.bottom - triggerBounds.bottom + triggerBounds.height + gap,
-                // left: (triggerBounds.left - wrapperBounds.left - (contentBounds.width / 2)) + triggerBounds.width / 2
-                left: edgePos
-            });
-
-        } else if (direction === 'left') {
-            this.setContentPosition({
-                right: wrapperBounds.right - triggerBounds.right + triggerBounds.width + gap,
-                // top: (triggerBounds.top - wrapperBounds.top + (triggerBounds.height / 2)) - (contentBounds.height / 2)
-            });
-        } else if (direction === 'right') {
-            this.setContentPosition({
-                left: triggerBounds.right - wrapperBounds.left + gap,
-                // top: (triggerBounds.top - wrapperBounds.top + (triggerBounds.height / 2)) - (contentBounds.height / 2)
-            });
-        } else {
-            const edgePos = this.getHorizontalEdgePosition(edge);
-            this.setContentPosition({
-                // left: (triggerBounds.left - wrapperBounds.left - (contentBounds.width / 2)) + triggerBounds.width / 2
-                top: triggerBounds.top - wrapperBounds.top + triggerBounds.height + gap,
-                left: edgePos
-            });
+        if (this.props.adjust) {
+            this.adjustContentPosition();
         }
-
-        console.log('TRIGGER BOUNDS:', triggerBounds);
-        console.log('WRAPPER BOUNDS:', wrapperBounds);
 
     }
 
@@ -243,11 +361,14 @@ export class Dropdown extends React.Component {
 
     render() {
 
-        const { show } = this.state;
+        const {
+            show,
+            direction='bottom'
+        } = this.state;
+
         const {
             children,
             className='ReactMinimalDropdown',
-            direction='bottom',
             edge='center',
             beak
         } = this.props;
