@@ -77,7 +77,7 @@ class Example extends React.PureComponent {
 
                     <section style={{marginTop: '72px'}}>
                         <div className="dropdown-examples">
-                            <Dropdown direction="left" beak={beak} gap={gap} adjust={adjust}>
+                            <Dropdown direction="left" show beak={beak} gap={gap} adjust={adjust}>
                                 <Dropdown.Trigger>Open left</Dropdown.Trigger>
                                 <Dropdown.Content>I am the <br />Dropdown content</Dropdown.Content>
                             </Dropdown>

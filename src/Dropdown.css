@@ -32,7 +32,6 @@
     max-height: 30vh;
     min-width: 170px;
     max-width: calc(100vw - 64px);
-    overflow: auto;
     padding: 8px;
     position: relative;
     z-index: 16;

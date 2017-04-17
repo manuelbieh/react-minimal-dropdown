@@ -161,42 +161,58 @@ export class Dropdown extends React.PureComponent {
     }
 
     getDirectionMode() {
-        return ['left', 'right'].includes(this.props.direction) ? 'horizontal' : 'vertical';
+        return ['left', 'right'].includes(this.state.direction) ? 'horizontal' : 'vertical';
     }
 
-    getHorizontalEdgePosition(edge=this.props.edge) {
+    getEdgePosition(edge=this.props.edge) {
 
         const triggerBounds = this.getTriggerBounds();
         const wrapperBounds = this.getWrapperBounds();
         const contentBounds = this.getContentBounds();
+
+        if (this.getDirectionMode() === 'horizontal') {
+
+            if (edge === 'top') {
+
+                return {
+                    top: triggerBounds.top - wrapperBounds.top
+                };
+
+            } else if (edge === 'bottom') {
+
+                return {
+                    top: (triggerBounds.bottom - wrapperBounds.top) - contentBounds.height
+                };
+
+            }
+
+            return {
+                top: (triggerBounds.top - wrapperBounds.top - (contentBounds.height / 2)) + triggerBounds.height / 2
+            };
+
+        }
 
         if (edge === 'left') {
-            return triggerBounds.left - wrapperBounds.left;
+
+            return {
+                left: triggerBounds.left - wrapperBounds.left
+            };
+
         } else if (edge === 'right') {
-            return (triggerBounds.right - wrapperBounds.left) - contentBounds.width;
+
+            return {
+                left: (triggerBounds.right - wrapperBounds.left) - contentBounds.width
+            };
+
         }
 
-        return (triggerBounds.left - wrapperBounds.left - (contentBounds.width / 2)) + triggerBounds.width / 2;
+        return {
+            left: (triggerBounds.left - wrapperBounds.left - (contentBounds.width / 2)) + triggerBounds.width / 2
+        };
 
     }
 
-    getVerticalEdgePosition(edge=this.props.edge) {
-
-        const triggerBounds = this.getTriggerBounds();
-        const wrapperBounds = this.getWrapperBounds();
-        const contentBounds = this.getContentBounds();
-
-        if (edge === 'top') {
-            return triggerBounds.top - wrapperBounds.top;
-        } else if (edge === 'bottom') {
-            return (triggerBounds.bottom - wrapperBounds.top) - contentBounds.height;
-        }
-
-        return (triggerBounds.top - wrapperBounds.top - (contentBounds.height / 2)) + triggerBounds.height / 2;
-
-    }
-
-    getHorizontalPosition(direction=this.props.direction, gap=this.props.gap) {
+    getContentPosition(direction=this.props.direction, gap=this.props.gap) {
 
         const triggerBounds = this.getTriggerBounds();
         const wrapperBounds = this.getWrapperBounds();
@@ -206,7 +222,6 @@ export class Dropdown extends React.PureComponent {
                 right: wrapperBounds.right - triggerBounds.right + triggerBounds.width + (gap || 0),
                 left: null
             };
-
         }
 
         if (direction === 'right') {
@@ -215,15 +230,6 @@ export class Dropdown extends React.PureComponent {
                 right: null
             };
         }
-
-        return {};
-
-    }
-
-    getVerticalPosition(direction=this.props.direction, gap=this.props.gap) {
-
-        const triggerBounds = this.getTriggerBounds();
-        const wrapperBounds = this.getWrapperBounds();
 
         if (direction === 'top') {
             return {
@@ -238,8 +244,6 @@ export class Dropdown extends React.PureComponent {
                 bottom: null
             };
         }
-
-        return {};
 
     }
 
@@ -292,9 +296,8 @@ export class Dropdown extends React.PureComponent {
             const opposite = opposites[direction];
 
             const oppositePosition = Object.assign({},
-                this.getDirectionMode() === 'horizontal'
-                ? Object.assign({}, this.getHorizontalPosition(opposite), { top: this.getVerticalEdgePosition() })
-                : Object.assign({}, this.getVerticalPosition(opposite), { left: this.getHorizontalEdgePosition() })
+                this.getContentPosition(opposite),
+                this.getEdgePosition()
             );
 
             this.setState({
@@ -307,9 +310,8 @@ export class Dropdown extends React.PureComponent {
             if (this.shouldContentBeAdjusted(opposite)) {
 
                 const restoredPosition = Object.assign({},
-                    this.getDirectionMode() === 'horizontal'
-                    ? Object.assign({}, this.getHorizontalPosition(), { top: this.getVerticalEdgePosition() })
-                    : Object.assign({}, this.getVerticalPosition(), { left: this.getHorizontalEdgePosition() })
+                    this.getContentPosition(),
+                    this.getEdgePosition()
                 );
 
                 this.setState({
@@ -328,9 +330,8 @@ export class Dropdown extends React.PureComponent {
     calculatePosition() {
 
         const position = Object.assign({},
-            this.getDirectionMode() === 'horizontal'
-            ? Object.assign({}, { top: this.getVerticalEdgePosition() }, this.getHorizontalPosition())
-            : Object.assign({}, { left: this.getHorizontalEdgePosition() }, this.getVerticalPosition())
+            this.getContentPosition(),
+            this.getEdgePosition()
         );
 
         this.setState({
@@ -338,6 +339,7 @@ export class Dropdown extends React.PureComponent {
         });
 
         this.setContentPosition(position);
+
         if (this.props.adjust) {
             this.adjustContentPosition();
         }
@@ -406,7 +408,7 @@ export class Dropdown extends React.PureComponent {
                         if (child.type === Trigger) {
 
                             if (process.env.NODE_ENV === 'production' && this.triggerEl) {
-                                console.error('[react-minimal-dropdown] Dropdowns may only contain one Dropdown.Trigger element.');
+                                console.error('[react-minimal-dropdown] Dropdowns may only contain one <Dropdown.Trigger> element.');
                             }
 
                             return React.cloneElement(child, {
@@ -421,7 +423,7 @@ export class Dropdown extends React.PureComponent {
                         if (child.type === Content) {
 
                             if (process.env.NODE_ENV === 'production' && this.contentEl) {
-                                console.error('[react-minimal-dropdown] Dropdowns may only contain one Dropdown.Content element.');
+                                console.error('[react-minimal-dropdown] Dropdowns may only contain one <Dropdown.Content> element.');
                             }
 
                             return React.cloneElement(child, {
