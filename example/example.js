@@ -53,16 +53,14 @@ class Example extends React.PureComponent {
                         <label>
                             <input type="checkbox" checked={ beak } onChange={(e) => {
                                 this.setState({ beak: e.target.checked });
-                            }} />
-                            show beak
+                            }} /> Show beak/triangle
                         </label>
                     </p>
                     <p>
                         <label>
                             <input type="checkbox" checked={ adjust } onChange={(e) => {
-                                this.setState({ beak: e.target.checked });
-                            }} />
-                            automatically (try to) adjust if out of viewport
+                                this.setState({ adjust: e.target.checked });
+                            }} /> Automatically (try to) adjust direction if content is out of viewport
                         </label>
                     </p>
 
@@ -71,14 +69,15 @@ class Example extends React.PureComponent {
                         {'    '}beak={`{${JSON.stringify(beak)}}`}<br />
                         {'    '}adjust={`{${JSON.stringify(adjust)}}`}<br />
                         {'    '}gap={`{${gap}}`}&gt;<br/>
-                        {'    '}…<br/>
+                        {'    '}&lt;Dropdown.Trigger&gt;Open&lt;Dropdown.Trigger&gt;<br/>
+                        {'    '}&lt;Dropdown.Content&gt;Content to be shown&lt;Dropdown.Content&gt;<br/>
                     &lt;/Dropdown&gt;</pre>
 
                     <h2>Examples</h2>
 
                     <section style={{marginTop: '72px'}}>
                         <div className="dropdown-examples">
-                            <Dropdown direction="left" show beak={beak} gap={gap} adjust={adjust}>
+                            <Dropdown direction="left" beak={beak} gap={gap} adjust={adjust}>
                                 <Dropdown.Trigger>Open left</Dropdown.Trigger>
                                 <Dropdown.Content>I am the <br />Dropdown content</Dropdown.Content>
                             </Dropdown>

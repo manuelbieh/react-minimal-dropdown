@@ -10,7 +10,7 @@ import Content from './Content';
 
 import css from './Dropdown.css';
 
-export class Dropdown extends React.Component {
+export class Dropdown extends React.PureComponent {
 
     static propTypes = {
         children: PropTypes.any,
@@ -138,22 +138,22 @@ export class Dropdown extends React.Component {
 
     }
 
-    setContentPosition({ top='auto', right='auto', bottom='auto', left='auto'}={}) {
-        this.contentEl.DOMNode.style.top = !top || isNaN(top) && top !== 'auto' ? top : `${top}px`;
-        this.contentEl.DOMNode.style.right = !right || isNaN(right) && right !== 'auto' ? right : `${right}px`;
-        this.contentEl.DOMNode.style.bottom = !bottom || isNaN(bottom) && bottom !== 'auto' ? bottom : `${bottom}px`;
-        this.contentEl.DOMNode.style.left = !left || isNaN(left) && left !== 'auto' ? left : `${left}px`;
+    setContentPosition({ top, right, bottom, left}={}) {
+        this.contentEl.DOMNode.style.top = typeof top === 'number' ? `${top}px` : 'auto';
+        this.contentEl.DOMNode.style.right = typeof right === 'number' ? `${right}px` : 'auto';
+        this.contentEl.DOMNode.style.bottom = typeof bottom === 'number' ? `${bottom}px` : 'auto';
+        this.contentEl.DOMNode.style.left = typeof left === 'number' ? `${left}px` : 'auto';
     }
 
-    get wrapperBounds() {
+    getWrapperBounds() {
         return this.wrapperEl.getBoundingClientRect();
     }
 
-    get triggerBounds() {
+    getTriggerBounds() {
         return this.triggerEl.DOMNode.getBoundingClientRect();
     }
 
-    get contentBounds() {
+    getContentBounds() {
         this.contentEl.DOMNode.style.display = 'block';
         const bounds = this.contentEl.DOMNode.getBoundingClientRect();
         this.contentEl.DOMNode.style.display = null;
@@ -166,31 +166,40 @@ export class Dropdown extends React.Component {
 
     getHorizontalEdgePosition(edge=this.props.edge) {
 
+        const triggerBounds = this.getTriggerBounds();
+        const wrapperBounds = this.getWrapperBounds();
+        const contentBounds = this.getContentBounds();
+
         if (edge === 'left') {
-            return this.triggerBounds.left - this.wrapperBounds.left;
+            return triggerBounds.left - wrapperBounds.left;
         } else if (edge === 'right') {
-            return (this.triggerBounds.right - this.wrapperBounds.left) - this.contentBounds.width;
+            return (triggerBounds.right - wrapperBounds.left) - contentBounds.width;
         }
 
-        return (this.triggerBounds.left - this.wrapperBounds.left - (this.contentBounds.width / 2)) + this.triggerBounds.width / 2;
+        return (triggerBounds.left - wrapperBounds.left - (contentBounds.width / 2)) + triggerBounds.width / 2;
 
     }
 
     getVerticalEdgePosition(edge=this.props.edge) {
 
+        const triggerBounds = this.getTriggerBounds();
+        const wrapperBounds = this.getWrapperBounds();
+        const contentBounds = this.getContentBounds();
+
         if (edge === 'top') {
-            return this.triggerBounds.top - this.wrapperBounds.top;
+            return triggerBounds.top - wrapperBounds.top;
         } else if (edge === 'bottom') {
-            return (this.triggerBounds.bottom - this.wrapperBounds.top) - this.contentBounds.height;
+            return (triggerBounds.bottom - wrapperBounds.top) - contentBounds.height;
         }
 
-        return (this.triggerBounds.top - this.wrapperBounds.top - (this.contentBounds.height / 2)) + this.triggerBounds.height / 2;
+        return (triggerBounds.top - wrapperBounds.top - (contentBounds.height / 2)) + triggerBounds.height / 2;
 
     }
 
     getHorizontalPosition(direction=this.props.direction, gap=this.props.gap) {
 
-        const { wrapperBounds, triggerBounds } = this;
+        const triggerBounds = this.getTriggerBounds();
+        const wrapperBounds = this.getWrapperBounds();
 
         if (direction === 'left') {
             return {
@@ -213,7 +222,8 @@ export class Dropdown extends React.Component {
 
     getVerticalPosition(direction=this.props.direction, gap=this.props.gap) {
 
-        const { wrapperBounds, triggerBounds } = this;
+        const triggerBounds = this.getTriggerBounds();
+        const wrapperBounds = this.getWrapperBounds();
 
         if (direction === 'top') {
             return {
@@ -235,23 +245,23 @@ export class Dropdown extends React.Component {
 
     shouldContentBeAdjusted(direction=this.props.direction) {
 
-        const { contentBounds } = this;
+        const contentBounds = this.getContentBounds();
+
+        const clientWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
 
         if (direction === 'left') {
-            if ((contentBounds.left < 0 && contentBounds.right < document.body.clientWidth) && this.props.adjust) {
+            if (contentBounds.left < 0 && contentBounds.right < clientWidth && this.props.adjust) {
                 return true;
             }
         }
 
         if (direction === 'right') {
-            if (contentBounds.right > document.body.clientWidth && contentBounds.left >= 0 && this.props.adjust) {
+            if (contentBounds.right > clientWidth && contentBounds.left >= 0 && this.props.adjust) {
                 return true;
             }
         }
 
         const clientHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        // console.log('CLIENT HEIGHT:', clientHeight);
-        // console.log('CONTBOUND:', contentBounds.top, contentBounds.bottom);
 
         if (direction === 'top') {
             if (contentBounds.top < 0 && contentBounds.bottom < clientHeight && this.props.adjust) {
@@ -264,6 +274,7 @@ export class Dropdown extends React.Component {
                 return true;
             }
         }
+        return false;
 
     }
 
@@ -327,7 +338,6 @@ export class Dropdown extends React.Component {
         });
 
         this.setContentPosition(position);
-
         if (this.props.adjust) {
             this.adjustContentPosition();
         }
@@ -338,6 +348,7 @@ export class Dropdown extends React.Component {
         this.setState({
             show: false
         });
+        this.setContentPosition();
         this.removeEvents();
     }
 
@@ -376,13 +387,13 @@ export class Dropdown extends React.Component {
         const classNames = [
             css.wrapper,
             beak && css.beak,
-            css[direction],
+            show && css[direction],
             css[`edge--${edge}`],
             css[show ? 'open' : 'closed'],
             className,
             `${className}--${direction}`
         ]
-        .filter((name) => typeof name !== 'undefined')
+        .filter((name) => name !== false && typeof name !== 'undefined')
         .join(' ');
 
         return (
