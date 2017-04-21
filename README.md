@@ -70,9 +70,9 @@ Also there are modifier classes both for the direction …
 - `ReactMinimalDropdown--left`
 
 and the open state: 
+
 - `ReactMinimalDropdown--isOpen`
 - `ReactMinimalDropdown--isClosed`
-- etc.
 
 
 ### Options
