@@ -1,17 +1,31 @@
 {
   "name": "react-minimal-dropdown",
-  "version": "0.0.0",
+  "version": "1.0.0-0",
   "description": "Simple, minimal and unobtrusive dropdown for React",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "develop": "./node_modules/.bin/webpack-dev-server --config webpack.config.babel.js/dev.babel.js --hot --inline --watch ",
-    "build": "./node_modules/.bin/cross-env NODE_ENV=production webpack --config webpack.config.babel.js/prod.babel.js -p"
+    "develop": "./node_modules/.bin/webpack-dev-server --hot --inline --watch ",
+    "build": "./node_modules/.bin/cross-env NODE_ENV=production webpack -p",
+    "prepublish": "./node_modules/.bin/eslint src",
+    "postpublish": "git push --tags && git push"
   },
   "keywords": [
     "react",
     "dropdown"
   ],
-  "author": "Manuel Bieh <node@manuelbieh.de> (https://github.com/manuelbieh)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/manuelbieh/react-minimal-dropdown.git"
+  },
+  "files": [
+      "lib/*",
+      "src/*",
+      ".babelrc",
+      ".eslintrc.json",
+      "LICENSE",
+      "README.md"
+  ],
+  "author": "Manuel Bieh <info@manuelbieh.de> (https://github.com/manuelbieh)",
   "license": "MIT",
   "devDependencies": {
     "@manuel-bieh/layout": "^1.0.0",
@@ -34,6 +48,7 @@
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
     "style-loader": "^0.16.1",
+    "uppercamelcase": "^1.1.0",
     "webpack": "^2.3.3",
     "webpack-dev-server": "^2.4.2"
   }

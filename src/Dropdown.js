@@ -1,3 +1,9 @@
+/*!
+  Copyright (c) 2017 Manuel Bieh.
+  Licensed under the MIT License (MIT), see
+  https://github.com/manuelbieh/react-minimal-dropdown
+*/
+
 import React from 'react';
 
 let PropTypes;
@@ -41,8 +47,12 @@ export class Dropdown extends React.PureComponent {
     };
 
     static defaultProps = {
+        ignoreScroll: true,
+        ignoreResize: false,
+        adjust: true,
         direction: 'bottom',
-        edge: 'center'
+        edge: 'center',
+        gap: 0
     };
 
     static Trigger = Trigger;
@@ -60,6 +70,7 @@ export class Dropdown extends React.PureComponent {
         this.show = this.show.bind(this);
         this.hide = this.hide.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.isOpen = this.isOpen.bind(this);
     }
 
     componentDidMount() {
@@ -68,7 +79,7 @@ export class Dropdown extends React.PureComponent {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.gap !== this.props.gap) {
+        if (nextProps.gap !== this.props.gap || nextProps.direction !== this.props.direction) {
             this.calculatePosition();
         }
     }
@@ -362,9 +373,13 @@ export class Dropdown extends React.PureComponent {
         this.addEvents();
     }
 
+    isOpen() {
+        return this.state.show;
+    }
+
     toggle() {
 
-        if (this.state.show) {
+        if (this.isOpen()) {
             this.hide();
         } else {
             this.show();
@@ -393,10 +408,13 @@ export class Dropdown extends React.PureComponent {
             css[`edge--${edge}`],
             css[show ? 'open' : 'closed'],
             className,
+            `${className}--is${show ? 'Open' : 'Closed'}`,
             `${className}--${direction}`
         ]
         .filter((name) => name !== false && typeof name !== 'undefined')
         .join(' ');
+
+        let triggerId = Math.random().toString(36).substring(2);
 
         return (
             <div
@@ -411,13 +429,21 @@ export class Dropdown extends React.PureComponent {
                                 console.error('[react-minimal-dropdown] Dropdowns may only contain one <Dropdown.Trigger> element.');
                             }
 
+                            if (child.props.id) {
+                                triggerId = child.props.id;
+                            }
+
                             return React.cloneElement(child, {
                                 ...child.props,
                                 ref: (node) => {
                                     this.triggerEl = node;
                                 },
+                                id: triggerId,
+                                show: show,
                                 toggle: this.toggle.bind(this)
                             });
+
+
                         }
 
                         if (child.type === Content) {
@@ -431,6 +457,7 @@ export class Dropdown extends React.PureComponent {
                                 ref: (node) => {
                                     this.contentEl = node;
                                 },
+                                ['aria-labelledby']: child.props['aria-labelledby'] || triggerId,
                                 direction: direction
                             });
                         }
@@ -447,3 +474,8 @@ export class Dropdown extends React.PureComponent {
 }
 
 export default Dropdown;
+
+export {
+    Trigger,
+    Content
+};

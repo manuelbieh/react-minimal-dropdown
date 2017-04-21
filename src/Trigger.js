@@ -12,6 +12,7 @@ export default class Trigger extends React.PureComponent {
         className: PropTypes.string,
         children: PropTypes.any,
         toggle: PropTypes.func,
+        show: PropTypes.bool,
     };
 
     get DOMNode() {
@@ -20,10 +21,16 @@ export default class Trigger extends React.PureComponent {
 
     render() {
 
-        const { children, className='ReactMinimalDropdown__Trigger', toggle, ...leftover } = this.props;
+        const { children, className='ReactMinimalDropdown__Trigger', toggle, show, ...leftover } = this.props;
 
         return (
-            <div {...leftover} ref={(node) => { this.node = node; }} onClick={ toggle } className={`${css.trigger || ''} ${className}`}>
+            <div
+                {...leftover}
+                ref={(node) => { this.node = node; }}
+                onClick={ toggle }
+                className={`${css.trigger || ''} ${className}`}
+                aria-expanded={ show }
+                aria-haspopup="true" >
                 { children }
             </div>
         );

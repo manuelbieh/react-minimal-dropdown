@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import camelCase from 'uppercamelcase';
 
 export default {
     entry: {
@@ -39,10 +40,10 @@ export default {
         new webpack.NamedModulesPlugin()
     ],
     output: {
-        path: path.resolve(__dirname, '..', 'lib'),
+        path: path.resolve(__dirname, '..', 'dist'),
         publicPath: '/',
         libraryTarget: 'umd',
-        library: require(path.resolve(__dirname, '..', 'package.json')).name,
+        library: camelCase(require(path.resolve(__dirname, '..', 'package.json')).name),
         filename: '[name].js'
     }
 };
