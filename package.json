@@ -1,6 +1,6 @@
 {
   "name": "react-minimal-dropdown",
-  "version": "1.0.0-0",
+  "version": "1.0.0-1",
   "description": "Simple, minimal and unobtrusive dropdown for React",
   "main": "dist/index.js",
   "scripts": {
@@ -18,12 +18,12 @@
     "url": "https://github.com/manuelbieh/react-minimal-dropdown.git"
   },
   "files": [
-      "dist/*",
-      "src/*",
-      ".babelrc",
-      ".eslintrc.json",
-      "LICENSE",
-      "README.md"
+    "dist/*",
+    "src/*",
+    ".babelrc",
+    ".eslintrc.json",
+    "LICENSE",
+    "README.md"
   ],
   "author": "Manuel Bieh <info@manuelbieh.de> (https://github.com/manuelbieh)",
   "license": "MIT",
