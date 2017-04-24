@@ -19,10 +19,10 @@ export default class Content extends React.PureComponent {
 
     render() {
 
-        const { children, className='ReactMinimalDropdown__Content', ...leftover } = this.props;
+        const { children, className='', ...leftover } = this.props;
 
         return (
-            <div {...leftover} ref={(node) => { this.node = node; }} className={`${css.content || ''} ${className}`}>
+            <div {...leftover} ref={(node) => { this.node = node; }} className={`ReactMinimalDropdown__Content ${css.content || ''} ${className}`}>
                 <div className={css.inner}>
                     { children }
                 </div>

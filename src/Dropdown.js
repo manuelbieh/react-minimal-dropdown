@@ -127,23 +127,23 @@ export class Dropdown extends React.PureComponent {
 
     componentWillUpdate(nextProps, nextState) {
 
-        if (nextState.show && typeof this.props.onBeforeOpen === 'function') {
+        if (nextState.show === true && this.state.show === false && typeof this.props.onBeforeOpen === 'function') {
             return this.props.onBeforeOpen(this);
         }
 
-        if (!nextState.show && typeof this.props.onBeforeClose === 'function') {
+        if (nextState.show === false && this.state.show === true && typeof this.props.onBeforeClose === 'function') {
             return this.props.onBeforeClose(this);
         }
 
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
 
-        if (this.state.show && typeof this.props.onAfterOpen === 'function') {
+        if (this.state.show === true && prevState.show === false && typeof this.props.onAfterOpen === 'function') {
             return this.props.onAfterOpen(this);
         }
 
-        if (!this.state.show && typeof this.props.onAfterClose === 'function') {
+        if (this.state.show === false && prevState.show === true && typeof this.props.onAfterClose === 'function') {
             return this.props.onAfterClose(this);
         }
 
@@ -396,12 +396,15 @@ export class Dropdown extends React.PureComponent {
 
         const {
             children,
-            className='ReactMinimalDropdown',
+            className,
             edge='center',
             beak
         } = this.props;
 
         const classNames = [
+            'ReactMinimalDropdown',
+            `ReactMinimalDropdown--is${show ? 'Open' : 'Closed'}`,
+            `ReactMinimalDropdown--${direction}`,
             css.wrapper,
             beak && css.beak,
             show && css[direction],
@@ -425,7 +428,7 @@ export class Dropdown extends React.PureComponent {
 
                         if (child.type === Trigger) {
 
-                            if (process.env.NODE_ENV === 'production' && this.triggerEl) {
+                            if (process.env.NODE_ENV !== 'production' && this.triggerEl) {
                                 console.error('[react-minimal-dropdown] Dropdowns may only contain one <Dropdown.Trigger> element.');
                             }
 
@@ -448,7 +451,7 @@ export class Dropdown extends React.PureComponent {
 
                         if (child.type === Content) {
 
-                            if (process.env.NODE_ENV === 'production' && this.contentEl) {
+                            if (process.env.NODE_ENV !== 'production' && this.contentEl) {
                                 console.error('[react-minimal-dropdown] Dropdowns may only contain one <Dropdown.Content> element.');
                             }
 

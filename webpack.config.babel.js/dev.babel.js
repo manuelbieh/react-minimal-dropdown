@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import camelCase from 'uppercamelcase';
+import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 
 export default {
     entry: {
@@ -31,6 +32,7 @@ export default {
     },
     plugins: [
         // new webpack.HotModuleReplacementPlugin(),
+        new CaseSensitivePathsPlugin(),
         new ExtractTextPlugin({
             filename: 'css/[name].css',
         }),

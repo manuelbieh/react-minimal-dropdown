@@ -21,14 +21,14 @@ export default class Trigger extends React.PureComponent {
 
     render() {
 
-        const { children, className='ReactMinimalDropdown__Trigger', toggle, show, ...leftover } = this.props;
+        const { children, className='', toggle, show, ...leftover } = this.props;
 
         return (
             <div
                 {...leftover}
                 ref={(node) => { this.node = node; }}
                 onClick={ toggle }
-                className={`${css.trigger || ''} ${className}`}
+                className={`ReactMinimalDropdown__Trigger ${css.trigger || ''} ${className}`}
                 aria-expanded={ show }
                 aria-haspopup="true" >
                 { children }
