@@ -70,6 +70,8 @@ export class Dropdown extends React.PureComponent {
         this.calculatePosition = this.calculatePosition.bind(this);
         this.show = this.show.bind(this);
         this.hide = this.hide.bind(this);
+        this.open = this.show.bind(this);
+        this.close = this.hide.bind(this);
         this.toggle = this.toggle.bind(this);
         this.isOpen = this.isOpen.bind(this);
     }

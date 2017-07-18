@@ -79,14 +79,14 @@ and the open state:
 
 | Prop | Default | Description |
 | -- | -- | -- |
+| adjust | `true` | Adjust content position if it is out of viewport. RMD will try to open it the opposite direction then. |
+| beak | `false` | Show a beak/triangle |
 | direction | `bottom` | Where to open the dropdown (Possible values: `top`, `right`,  `bottom`, `left`) |
 | edge | center | Where to align the content. (Can be `left`, `center`, `right` when `direction` is set to `top` or `bottom` and `bottom`, `center`, `top` when `direction` is set to `left` or `right`) |
-| show | `false` | flag to have the dropdown content opened initially. This is only respected when the component gets mounted first! |
 | gap | `0` | gap/margin between the content and the trigger |
-| beak | `false` | Show a beak/triangle |
-| adjust | `true` | Adjust content position if it is out of viewport. RMD will try to open it the opposite direction then. |
 | ignoreScroll | `true` | Don't recalculate the content position on `window.scroll` |
 | ignoreResize | `false` | Don't recalculate the content position on `window.resize` |
+| show | `false` | flag to have the dropdown content opened initially. This is only respected when the component gets mounted first! |
 
 ### Events
 
@@ -105,8 +105,8 @@ There are some methods you can use on the `<Dropdown>` element to control it fro
 
 | Method | Description |
 | -- | -- |
-| `.show()` | Open the dropdown |
-| `.hide()` | Close the dropdown |
+| `.show()` (alias: `.open()`) | Open the dropdown |
+| `.hide()` (alias: `.close()`) | Close the dropdown |
 | `.toggle()` | Toggle the dropdown state |
 | `.isOpen()` | (Boolean) Check if the dropdown state is currently open or not |
 | `.recalculatePosition()` | Recalculate the position of the `<Dropdown.Content>` |
@@ -120,7 +120,11 @@ There are some methods you can use on the `<Dropdown>` element to control it fro
 ## Changelog
 
 - [1.0.0]: Initial release
+- [1.1.0]: Possibly breaking: `<Dropdown>` default style was changed to `display: inline-block` (was `block` before). `block={true}` prop was added to switch to block.
 
 ## License
 
 [MIT](LICENSE). Copyright (c) 2017 Manuel Bieh.
+
+## Screenshot
+![](example/screenshot.png)
