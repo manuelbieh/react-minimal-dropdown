@@ -2,6 +2,11 @@
     cursor: pointer;
     position: relative;
     user-select: none;
+    display: inline-block;
+}
+
+.wrapper.block {
+    display: block;
 }
 
 .wrapper.open .content {
@@ -23,6 +28,24 @@
 
 .wrapper .trigger {
     z-index: 1;
+}
+
+.wrapper .trigger.arrow {
+    position: relative;
+}
+
+.wrapper .trigger.arrow:after {
+    border-bottom: 2px solid inherit;
+    border-right: 2px solid inherit;
+    content: "";
+    display: block;
+    height: 6px;
+    margin-top: -6px;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: rotate(45deg);
+    width: 6px;
 }
 
 .wrapper .inner {

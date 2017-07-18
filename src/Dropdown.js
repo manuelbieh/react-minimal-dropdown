@@ -19,17 +19,11 @@ import css from './Dropdown.css';
 export class Dropdown extends React.PureComponent {
 
     static propTypes = {
+        adjust: PropTypes.bool,
+        beak: PropTypes.bool,
+        block: PropTypes.bool,
         children: PropTypes.any,
         className: PropTypes.string,
-        show: PropTypes.bool,
-        gap: PropTypes.number,
-        adjust: PropTypes.bool,
-        onBeforeOpen: PropTypes.func,
-        onBeforeClose: PropTypes.func,
-        onAfterOpen: PropTypes.func,
-        onAfterClose: PropTypes.func,
-        ignoreResize: PropTypes.bool,
-        ignoreScroll: PropTypes.bool,
         direction: PropTypes.oneOf([
             'top',
             'right',
@@ -43,16 +37,23 @@ export class Dropdown extends React.PureComponent {
             'left',
             'center'
         ]),
-        beak: PropTypes.bool,
+        gap: PropTypes.number,
+        ignoreResize: PropTypes.bool,
+        ignoreScroll: PropTypes.bool,
+        onBeforeOpen: PropTypes.func,
+        onBeforeClose: PropTypes.func,
+        onAfterOpen: PropTypes.func,
+        onAfterClose: PropTypes.func,
+        show: PropTypes.bool,
     };
 
     static defaultProps = {
-        ignoreScroll: true,
-        ignoreResize: false,
         adjust: true,
         direction: 'bottom',
         edge: 'center',
-        gap: 0
+        gap: 0,
+        ignoreScroll: true,
+        ignoreResize: false,
     };
 
     static Trigger = Trigger;
@@ -395,6 +396,7 @@ export class Dropdown extends React.PureComponent {
         } = this.state;
 
         const {
+            block,
             children,
             className,
             edge='center',
@@ -406,13 +408,14 @@ export class Dropdown extends React.PureComponent {
             `ReactMinimalDropdown--is${show ? 'Open' : 'Closed'}`,
             `ReactMinimalDropdown--${direction}`,
             css.wrapper,
+            block && css.block,
             beak && css.beak,
             show && css[direction],
             css[`edge--${edge}`],
             css[show ? 'open' : 'closed'],
             className,
-            `${className}--is${show ? 'Open' : 'Closed'}`,
-            `${className}--${direction}`
+            className && `${className}--is${show ? 'Open' : 'Closed'}`,
+            className && `${className}--${direction}`
         ]
         .filter((name) => name !== false && typeof name !== 'undefined')
         .join(' ');
