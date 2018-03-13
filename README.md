@@ -23,9 +23,10 @@ yarn add react-minimal-dropdown
 ## Usage
 
 There are 3 components you must use to get `Dropdown` functionality:
-- `<Dropdown>` – as mandatory wrapper
-- `<Trigger>` – acts as trigger to show and hide content
-- `<Content>` – the content to be shown
+
+*   `<Dropdown>` – as mandatory wrapper
+*   `<Trigger>` – acts as trigger to show and hide content
+*   `<Content>` – the content to be shown
 
 `Trigger` and `Content` are defined as static members of the `Dropdown` component so you only have to import `Dropdown` and can then use it as `<Dropdown.Trigger>` and `<Dropdown.Content>` in your JSX instead of having to import all of them explicitly (which is also possible though).
 
@@ -47,7 +48,7 @@ export const Example = () => {
             <Dropdown.Content>You clicked the dropdown trigger!</Dropdown.Content>
         </Dropdown>
     );
-}
+};
 ```
 
 (… and then don't forget to include the css file from `react-minimal-dropdown/dist/css/index.css`)
@@ -58,73 +59,74 @@ Easy, isn't it?
 
 Internally RMD uses CSS Modules for scoped styling so you should not be worried that including RMD might break your CSS. If you want to overwrite the existing default styling you can use the predefined BEM like CSS classes:
 
-- `ReactMinimalDropdown`
-- `ReactMinimalDropdown__Content` 
-- `ReactMinimalDropdown__Trigger`. 
+*   `ReactMinimalDropdown`
+*   `ReactMinimalDropdown__Content`
+*   `ReactMinimalDropdown__Trigger`.
 
-Also there are modifier classes both for the direction … 
+Also there are modifier classes both for the direction …
 
-- `ReactMinimalDropdown--top`
-- `ReactMinimalDropdown--right`
-- `ReactMinimalDropdown--bottom`
-- `ReactMinimalDropdown--left`
+*   `ReactMinimalDropdown--top`
+*   `ReactMinimalDropdown--right`
+*   `ReactMinimalDropdown--bottom`
+*   `ReactMinimalDropdown--left`
 
-and the open state: 
+and the open state:
 
-- `ReactMinimalDropdown--isOpen`
-- `ReactMinimalDropdown--isClosed`
-
+*   `ReactMinimalDropdown--isOpen`
+*   `ReactMinimalDropdown--isClosed`
 
 ### Options
 
-| Prop | Default | Description |
-| -- | -- | -- |
-| adjust | `true` | Adjust content position if it is out of viewport. RMD will try to open it the opposite direction then. |
-| beak | `false` | Show a beak/triangle |
-| direction | `bottom` | Where to open the dropdown (Possible values: `top`, `right`,  `bottom`, `left`) |
-| edge | center | Where to align the content. (Can be `left`, `center`, `right` when `direction` is set to `top` or `bottom` and `bottom`, `center`, `top` when `direction` is set to `left` or `right`) |
-| gap | `0` | gap/margin between the content and the trigger |
-| ignoreScroll | `true` | Don't recalculate the content position on `window.scroll` |
-| ignoreResize | `false` | Don't recalculate the content position on `window.resize` |
-| show | `false` | flag to have the dropdown content opened initially. This is only respected when the component gets mounted first! |
+| Prop         | Default  | Description                                                                                                                                                                            |
+| ------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| adjust       | `true`   | Adjust content position if it is out of viewport. RMD will try to open it the opposite direction then.                                                                                 |
+| beak         | `false`  | Show a beak/triangle                                                                                                                                                                   |
+| direction    | `bottom` | Where to open the dropdown (Possible values: `top`, `right`, `bottom`, `left`)                                                                                                         |
+| edge         | center   | Where to align the content. (Can be `left`, `center`, `right` when `direction` is set to `top` or `bottom` and `bottom`, `center`, `top` when `direction` is set to `left` or `right`) |
+| gap          | `0`      | gap/margin between the content and the trigger                                                                                                                                         |
+| ignoreScroll | `true`   | Don't recalculate the content position on `window.scroll`                                                                                                                              |
+| ignoreResize | `false`  | Don't recalculate the content position on `window.resize`                                                                                                                              |
+| show         | `false`  | flag to have the dropdown content opened initially. This is only respected when the component gets mounted first!                                                                      |
 
 ### Events
 
 You can trigger callbacks on certain events. Just use the following props on the `<Dropdown>` element:
 
-| Event | Description |
-| -- | -- |
-| onBeforeOpen | Fires **before** `this.state.show` gets set to `true` |
+| Event         | Description                                            |
+| ------------- | ------------------------------------------------------ |
+| onBeforeOpen  | Fires **before** `this.state.show` gets set to `true`  |
 | onBeforeClose | Fires **before** `this.state.show` gets set to `false` |
-| onAfterOpen | Fires **after** `this.state.show` gets set to `true` |
-| onAfterClose | Fires **after** `this.state.show` gets set to `false` |
+| onAfterOpen   | Fires **after** `this.state.show` gets set to `true`   |
+| onAfterClose  | Fires **after** `this.state.show` gets set to `false`  |
 
 ### API
 
 There are some methods you can use on the `<Dropdown>` element to control it from outside.
 
-| Method | Description |
-| -- | -- |
-| `.show()` (alias: `.open()`) | Open the dropdown |
-| `.hide()` (alias: `.close()`) | Close the dropdown |
-| `.toggle()` | Toggle the dropdown state |
-| `.isOpen()` | (Boolean) Check if the dropdown state is currently open or not |
-| `.recalculatePosition()` | Recalculate the position of the `<Dropdown.Content>` |
+| Method                        | Description                                                    |
+| ----------------------------- | -------------------------------------------------------------- |
+| `.show()` (alias: `.open()`)  | Open the dropdown                                              |
+| `.hide()` (alias: `.close()`) | Close the dropdown                                             |
+| `.toggle()`                   | Toggle the dropdown state                                      |
+| `.isOpen()`                   | (Boolean) Check if the dropdown state is currently open or not |
+| `.recalculatePosition()`      | Recalculate the position of the `<Dropdown.Content>`           |
 
 ## Todo
 
-- Add some tests
-- Add typings for TypeScript
-- …
+*   Add some tests
+*   Add typings for TypeScript
+*   …
 
 ## Changelog
 
-- [1.0.0]: Initial release
-- [1.1.0]: Possibly breaking: `<Dropdown>` default style was changed to `display: inline-block` (was `block` before). `block={true}` prop was added to switch to block.
+*   [1.0.0]: Initial release
+*   [1.1.0]: Possibly breaking: `<Dropdown>` default style was changed to `display: inline-block` (was `block` before). `block={true}` prop was added to switch to block.
+*   [1.2.0]: Added prettier and using ES2015+ class property syntax for components.
 
 ## License
 
 [MIT](LICENSE). Copyright (c) 2017 Manuel Bieh.
 
 ## Screenshot
+
 ![](example/screenshot.png)
