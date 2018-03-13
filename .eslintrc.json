@@ -9,7 +9,10 @@
         "__DEV__": true
     },
     "extends": [
-        "wiremore", 
+        "wiremore",
         "wiremore/react"
+    ],
+    "plugins": [
+        "babel"
     ]
 }

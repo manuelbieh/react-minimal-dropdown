@@ -37,7 +37,7 @@
 .wrapper .trigger.arrow:after {
     border-bottom: 2px solid inherit;
     border-right: 2px solid inherit;
-    content: "";
+    content: '';
     display: block;
     height: 6px;
     margin-top: -6px;
@@ -65,7 +65,7 @@
     border-style: solid;
     border-width: 0;
     background: white;
-    content: "";
+    content: '';
     height: 16px;
     position: absolute;
     transform: rotate(45deg);
