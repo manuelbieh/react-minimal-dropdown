@@ -1,5 +1,5 @@
 /*!
-  Copyright (c) 2017 Manuel Bieh.
+  Copyright (c) 2018 Manuel Bieh.
   Licensed under the MIT License (MIT), see
   https://github.com/manuelbieh/react-minimal-dropdown
 */
@@ -242,6 +242,10 @@ export class Dropdown extends React.PureComponent {
         }
     };
 
+    setNode = (node) => {
+        this.wrapperEl = node;
+    };
+
     shouldContentBeAdjusted = (direction = this.props.direction) => {
         const contentBounds = this.getContentBounds();
 
@@ -392,12 +396,7 @@ export class Dropdown extends React.PureComponent {
             .substring(2);
 
         return (
-            <div
-                ref={(node) => {
-                    this.wrapperEl = node;
-                }}
-                className={classNames}
-            >
+            <div ref={this.setNode} className={classNames}>
                 {React.Children.map(children, (child) => {
                     if (child.type === Trigger) {
                         if (process.env.NODE_ENV !== 'production' && this.triggerEl) {

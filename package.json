@@ -8,7 +8,6 @@
     "build:example": "cross-env webpack",
     "build": "cross-env NODE_ENV=production webpack -p --env=production",
     "precommit": "lint-staged",
-    "prepublishOnly": "eslint src",
     "postpublish": "git push --tags && git push"
   },
   "keywords": [

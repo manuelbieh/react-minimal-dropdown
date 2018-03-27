@@ -19,15 +19,17 @@ export default class Trigger extends React.PureComponent {
         return this.node;
     }
 
+    setNode = (node) => {
+        this.node = node;
+    };
+
     render() {
         const { children, className = '', toggle, show, arrow, ...leftover } = this.props;
 
         return (
             <div
                 {...leftover}
-                ref={(node) => {
-                    this.node = node;
-                }}
+                ref={this.setNode}
                 onClick={toggle}
                 className={`ReactMinimalDropdown__Trigger ${css.trigger ||
                     ''} ${className} ${(arrow && css.arrow) || ''}`}
