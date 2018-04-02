@@ -1,4 +1,6 @@
+import path from 'path';
 import config from './development.babel';
+import camelCase from 'uppercamelcase';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default Object.assign({}, config, {
@@ -41,5 +43,12 @@ export default Object.assign({}, config, {
             commonjs: 'prop-types',
             amd: 'prop-types',
         },
+    },
+    output: {
+        path: path.resolve(__dirname, '..', 'dist'),
+        publicPath: 'dist',
+        libraryTarget: 'umd',
+        library: camelCase(require(path.resolve(__dirname, '..', 'package.json')).name),
+        filename: '[name].js',
     },
 });

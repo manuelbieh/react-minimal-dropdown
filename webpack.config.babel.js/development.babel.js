@@ -54,8 +54,8 @@ export default {
         }),
     ],
     output: {
-        path: path.resolve(__dirname, '..', 'dist'),
-        publicPath: 'dist',
+        path: path.resolve(__dirname, '..', 'example'),
+        publicPath: 'example',
         libraryTarget: 'umd',
         library: camelCase(require(path.resolve(__dirname, '..', 'package.json')).name),
         filename: '[name].js',
