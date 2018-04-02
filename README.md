@@ -34,6 +34,9 @@ React Minimal Dropdown is built using Webpack with `umd` as `libraryTarget` so i
 
 ### Example
 
+You can find a live example here:
+https://manuelbieh.github.io/react-minimal-dropdown/example/
+
 ```jsx
 import React from 'react';
 import Dropdown from 'react-minimal-dropdown';
