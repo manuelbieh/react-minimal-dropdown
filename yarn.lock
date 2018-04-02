@@ -2150,7 +2150,7 @@ eslint-config-prettier@^2.9.0:
   dependencies:
     get-stdin "^5.0.1"
 
-eslint-config-wiremore@^1.0.6:
+eslint-config-wiremore@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/eslint-config-wiremore/-/eslint-config-wiremore-1.3.1.tgz#c80a907ad5f2143ee9fc1f7e84afa6f30d62bdf5"
   dependencies:

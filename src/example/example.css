@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
 }
@@ -16,11 +17,6 @@ header > * {
 input {
     vertical-align: middle;
 }
-
-/*:global(.ReactMinimalDropdown) {
-    outline: 1px solid red;
-    display: inline-block;
-}*/
 
 :global(.ReactMinimalDropdown__Trigger) {
     background: #eee;
@@ -43,7 +39,6 @@ input {
 }
 
 :global(.ReactMinimalDropdown__Content) {
-
 }
 
 :global(.dropdown-examples) {

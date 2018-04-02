@@ -391,9 +391,7 @@ export class Dropdown extends React.PureComponent {
             .filter((name) => name !== false && typeof name !== 'undefined')
             .join(' ');
 
-        let triggerId = Math.random()
-            .toString(36)
-            .substring(2);
+        let triggerId;
 
         return (
             <div ref={this.setNode} className={classNames}>

@@ -7,7 +7,7 @@ import camelCase from 'uppercamelcase';
 
 export default {
     entry: {
-        example: './example/example.js',
+        example: './src/example/example.js',
     },
     stats: {
         children: false,
@@ -49,11 +49,13 @@ export default {
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
         }),
         new webpack.NamedModulesPlugin(),
-        new HtmlWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: 'src/example/example.html',
+        }),
     ],
     output: {
         path: path.resolve(__dirname, '..', 'dist'),
-        publicPath: '/',
+        publicPath: 'dist',
         libraryTarget: 'umd',
         library: camelCase(require(path.resolve(__dirname, '..', 'package.json')).name),
         filename: '[name].js',

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Dropdown from '../src/Dropdown';
+import { Dropdown, Trigger, Content } from '../Dropdown';
 
 import 'normalize-css/normalize.css';
 import '@manuel-bieh/layout/css/website/config/defaults.css';
@@ -16,8 +16,23 @@ class Example extends React.PureComponent {
         direction: 'right',
     };
 
+    changeGap = (e) => {
+        const { target: { value } } = e;
+        this.setState(() => ({ gap: parseInt(value, 10) }));
+    };
+
+    changeBeak = (e) => {
+        const { target: { checked } } = e;
+        this.setState(() => ({ beak: checked }));
+    };
+
+    changeAdjust = (e) => {
+        const { target: { checked } } = e;
+        this.setState(() => ({ adjust: checked }));
+    };
+
     render() {
-        const { gap, beak, adjust, direction } = this.state;
+        const { gap, beak, adjust } = this.state;
 
         return (
             <div>
@@ -35,33 +50,19 @@ class Example extends React.PureComponent {
                             min={0}
                             max={32}
                             value={gap}
-                            onChange={(e) => {
-                                this.setState({ gap: parseInt(e.target.value, 10) });
-                            }}
+                            onChange={this.changeGap}
                         />
                         {gap}px
                     </p>
                     <p>
                         <label>
-                            <input
-                                type="checkbox"
-                                checked={beak}
-                                onChange={(e) => {
-                                    this.setState({ beak: e.target.checked });
-                                }}
-                            />{' '}
-                            Show beak/triangle
+                            <input type="checkbox" checked={beak} onChange={this.changeBeak} /> Show
+                            beak/triangle
                         </label>
                     </p>
                     <p>
                         <label>
-                            <input
-                                type="checkbox"
-                                checked={adjust}
-                                onChange={(e) => {
-                                    this.setState({ adjust: e.target.checked });
-                                }}
-                            />{' '}
+                            <input type="checkbox" checked={adjust} onChange={this.changeAdjust} />{' '}
                             Automatically (try to) adjust direction if content is out of viewport
                         </label>
                     </p>
@@ -74,8 +75,8 @@ class Example extends React.PureComponent {
                         {'    '}adjust={`{${JSON.stringify(adjust)}}`}
                         <br />
                         {'    '}gap={`{${gap}}`}&gt;<br />
-                        {'    '}&lt;Dropdown.Trigger&gt;Open&lt;Dropdown.Trigger&gt;<br />
-                        {'    '}&lt;Dropdown.Content&gt;Content to be shown&lt;Dropdown.Content&gt;<br />
+                        {'    '}&lt;Trigger&gt;Open&lt;Trigger&gt;<br />
+                        {'    '}&lt;Content&gt;Content to be shown&lt;Content&gt;<br />
                         &lt;/Dropdown&gt;
                     </pre>
 
@@ -83,29 +84,29 @@ class Example extends React.PureComponent {
 
                     <section>
                         <div className="dropdown-examples">
-                            <Dropdown direction="left" show beak={beak} gap={gap} adjust={adjust}>
-                                <Dropdown.Trigger id="my-id">Open left</Dropdown.Trigger>
-                                <Dropdown.Content>
+                            <Dropdown direction="left" beak={beak} gap={gap} adjust={adjust} show>
+                                <Trigger id="my-id">Open left</Trigger>
+                                <Content>
                                     I am the <br />Dropdown content
-                                </Dropdown.Content>
+                                </Content>
                             </Dropdown>
-                            <Dropdown direction="top" show beak={beak} gap={gap} adjust={adjust}>
-                                <Dropdown.Trigger>Open top</Dropdown.Trigger>
-                                <Dropdown.Content>
+                            <Dropdown direction="top" beak={beak} gap={gap} adjust={adjust} show>
+                                <Trigger>Open top</Trigger>
+                                <Content>
                                     I am the <br />Dropdown content
-                                </Dropdown.Content>
+                                </Content>
                             </Dropdown>
-                            <Dropdown direction="bottom" show beak={beak} gap={gap} adjust={adjust}>
-                                <Dropdown.Trigger>Open bottom</Dropdown.Trigger>
-                                <Dropdown.Content>
+                            <Dropdown direction="bottom" beak={beak} gap={gap} adjust={adjust} show>
+                                <Trigger>Open bottom</Trigger>
+                                <Content>
                                     I am the <br />Dropdown content
-                                </Dropdown.Content>
+                                </Content>
                             </Dropdown>
-                            <Dropdown direction="right" show beak={beak} gap={gap} adjust={adjust}>
-                                <Dropdown.Trigger>Open right</Dropdown.Trigger>
-                                <Dropdown.Content>
+                            <Dropdown direction="right" beak={beak} gap={gap} adjust={adjust} show>
+                                <Trigger>Open right</Trigger>
+                                <Content>
                                     I am the <br />Dropdown content
-                                </Dropdown.Content>
+                                </Content>
                             </Dropdown>
                         </div>
                     </section>
@@ -114,41 +115,41 @@ class Example extends React.PureComponent {
                             <Dropdown
                                 direction="top"
                                 edge="left"
-                                show
                                 beak={beak}
                                 gap={gap}
                                 adjust={adjust}
+                                show
                             >
-                                <Dropdown.Trigger>Open top left</Dropdown.Trigger>
-                                <Dropdown.Content>
+                                <Trigger>Open top left</Trigger>
+                                <Content>
                                     I am the <br />Dropdown content
-                                </Dropdown.Content>
+                                </Content>
                             </Dropdown>
                             <Dropdown
                                 direction="top"
                                 edge="center"
-                                show
                                 beak={beak}
                                 gap={gap}
                                 adjust={adjust}
+                                show
                             >
-                                <Dropdown.Trigger>Open top center</Dropdown.Trigger>
-                                <Dropdown.Content>
+                                <Trigger>Open top center</Trigger>
+                                <Content>
                                     I am the <br />Dropdown content
-                                </Dropdown.Content>
+                                </Content>
                             </Dropdown>
                             <Dropdown
                                 direction="top"
                                 edge="right"
-                                show
                                 beak={beak}
                                 gap={gap}
                                 adjust={adjust}
+                                show
                             >
-                                <Dropdown.Trigger>Open top right</Dropdown.Trigger>
-                                <Dropdown.Content>
+                                <Trigger>Open top right</Trigger>
+                                <Content>
                                     I am the <br />Dropdown content
-                                </Dropdown.Content>
+                                </Content>
                             </Dropdown>
                         </div>
                     </section>
@@ -157,47 +158,47 @@ class Example extends React.PureComponent {
                             <Dropdown
                                 direction="left"
                                 edge="top"
-                                show
                                 beak={beak}
                                 gap={gap}
                                 adjust={adjust}
+                                show
                             >
-                                <Dropdown.Trigger>
+                                <Trigger>
                                     Open<br /> left<br /> top
-                                </Dropdown.Trigger>
-                                <Dropdown.Content>
+                                </Trigger>
+                                <Content>
                                     I am the <br />Dropdown content
-                                </Dropdown.Content>
+                                </Content>
                             </Dropdown>
                             <Dropdown
                                 direction="left"
                                 edge="center"
-                                show
                                 beak={beak}
                                 gap={gap}
                                 adjust={adjust}
+                                show
                             >
-                                <Dropdown.Trigger>
+                                <Trigger>
                                     Open<br /> left<br /> center
-                                </Dropdown.Trigger>
-                                <Dropdown.Content>
+                                </Trigger>
+                                <Content>
                                     I am the <br />Dropdown content
-                                </Dropdown.Content>
+                                </Content>
                             </Dropdown>
                             <Dropdown
                                 direction="left"
                                 edge="bottom"
-                                show
                                 beak={beak}
                                 gap={gap}
                                 adjust={adjust}
+                                show
                             >
-                                <Dropdown.Trigger>
+                                <Trigger>
                                     Open<br /> left<br /> bottom
-                                </Dropdown.Trigger>
-                                <Dropdown.Content>
+                                </Trigger>
+                                <Content>
                                     I am the <br />Dropdown content
-                                </Dropdown.Content>
+                                </Content>
                             </Dropdown>
                         </div>
                     </section>
@@ -206,28 +207,28 @@ class Example extends React.PureComponent {
                             <Dropdown
                                 direction="top"
                                 edge="right"
-                                show
                                 beak={beak}
                                 gap={gap}
                                 adjust={adjust}
+                                show
                             >
-                                <Dropdown.Trigger>Top center</Dropdown.Trigger>
-                                <Dropdown.Content>
+                                <Trigger>Top center</Trigger>
+                                <Content>
                                     I am the <br />Dropdown content
-                                </Dropdown.Content>
+                                </Content>
                             </Dropdown>
                         </div>
                     </section>
                     <section style={{ marginTop: '72px' }}>
                         <div className="dropdown-examples">
-                            <Dropdown direction="right" show beak={beak} gap={gap} adjust={adjust}>
-                                <Dropdown.Trigger>Open right</Dropdown.Trigger>
-                                <Dropdown.Content>
+                            <Dropdown direction="right" beak={beak} gap={gap} adjust={adjust} show>
+                                <Trigger>Open right</Trigger>
+                                <Content>
                                     <Dropdown direction="top" beak={beak} gap={gap} adjust={adjust}>
-                                        <Dropdown.Trigger>Top Nested</Dropdown.Trigger>
-                                        <Dropdown.Content>Yeah!</Dropdown.Content>
+                                        <Trigger>Top Nested</Trigger>
+                                        <Content>Yeah!</Content>
                                     </Dropdown>
-                                </Dropdown.Content>
+                                </Content>
                             </Dropdown>
                         </div>
                     </section>
