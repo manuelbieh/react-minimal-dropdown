@@ -1,4 +1,4 @@
-# ⚛️ React Minimal Dropdown
+# ⚛ React Minimal Dropdown
 
 Pretty straightforward: I needed a tiny **dropdown** component which was good for exactly one thing: a user clicks on a trigger and content appears next to it. That's it. No built-in `<select>` imitation or whatever. Just a plain dropdown. I looked at dozens of existing React dropdown components but all of them were either overcomplicated (for my needs) or unmaintained or had a really bad code quality (or all of it). The result: **React Minimal Dropdown**.
 
