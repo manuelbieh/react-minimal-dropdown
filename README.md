@@ -16,7 +16,9 @@ I don't aim to cover any exotic use case but instead I focus on a minimum of fea
 
 ```
 npm install --save react-minimal-dropdown
-// or:
+```
+or:
+```
 yarn add react-minimal-dropdown
 ```
 
@@ -37,26 +39,24 @@ React Minimal Dropdown is built using Webpack with `umd` as `libraryTarget` so i
 You can find a live example here:
 https://manuelbieh.github.io/react-minimal-dropdown/example/
 
-```jsx
+```js
 import React from 'react';
 import Dropdown from 'react-minimal-dropdown';
 
-// or:
-// import Dropdown, { Trigger, Content } from 'react-minimal dropdown'
+// or import and use the components directly:
+// import { Dropdown, Trigger, Content } from 'react-minimal dropdown'
 
 export const Example = () => {
-    return (
-        <Dropdown direction="right" beak>
-            <Dropdown.Trigger>Click me!</Dropdown.Trigger>
-            <Dropdown.Content>You clicked the dropdown trigger!</Dropdown.Content>
-        </Dropdown>
-    );
+  return (
+    <Dropdown direction="right" beak>
+      <Dropdown.Trigger>Click me!</Dropdown.Trigger>
+      <Dropdown.Content>You clicked the dropdown trigger!</Dropdown.Content>
+    </Dropdown>
+  );
 };
 ```
 
-(… and then don't forget to include the css file from `react-minimal-dropdown/dist/css/index.css`)
-
-Easy, isn't it?
+**Attention:** Don't forget to also include the css file from `react-minimal-dropdown/dist/css/index.css`!
 
 ### Styling
 
@@ -82,14 +82,14 @@ and the open state:
 
 | Prop         | Default  | Description                                                                                                                                                                            |
 | ------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| adjust       | `true`   | Adjust content position if it is out of viewport. RMD will try to open it the opposite direction then.                                                                                 |
-| beak         | `false`  | Show a beak/triangle                                                                                                                                                                   |
-| direction    | `bottom` | Where to open the dropdown (Possible values: `top`, `right`, `bottom`, `left`)                                                                                                         |
-| edge         | center   | Where to align the content. (Can be `left`, `center`, `right` when `direction` is set to `top` or `bottom` and `bottom`, `center`, `top` when `direction` is set to `left` or `right`) |
-| gap          | `0`      | gap/margin between the content and the trigger                                                                                                                                         |
-| ignoreScroll | `true`   | Don't recalculate the content position on `window.scroll`                                                                                                                              |
-| ignoreResize | `false`  | Don't recalculate the content position on `window.resize`                                                                                                                              |
-| show         | `false`  | flag to have the dropdown content opened initially. This is only respected when the component gets mounted first!                                                                      |
+| `adjust`       | `true`   | Adjust content position if it is out of viewport. The component will try to open it the opposite direction then.                                                                                 |
+| `beak`         | `false`  | Show a beak/triangle                                                                                                                                                                   |
+| `direction`    | `bottom` | Where to open the dropdown (Possible values: `top`, `right`, `bottom`, `left`)                                                                                                         |
+| `edge`         | center   | Where to align the content. (Can be `left`, `center`, `right` when `direction` is set to `top` or `bottom` and `bottom`, `center`, `top` when `direction` is set to `left` or `right`) |
+| `gap`          | `0`      | gap/margin between the content and the trigger                                                                                                                                         |
+| `ignoreScroll` | `true`   | Don't recalculate the content position on `window.scroll`                                                                                                                              |
+| `ignoreResize` | `false`  | Don't recalculate the content position on `window.resize`                                                                                                                              |
+| `show`         | `false`  | flag to have the dropdown content opened initially. This is only respected when the component gets mounted first!                                                                      |
 
 ### Events
 
@@ -121,10 +121,10 @@ There are some methods you can use on the `<Dropdown>` element to control it fro
 *   …
 
 ## Changelog
-
-*   [1.0.0]: Initial release
-*   [1.1.0]: Possibly breaking: `<Dropdown>` default style was changed to `display: inline-block` (was `block` before). `block={true}` prop was added to switch to block.
+*   [1.3.1]: No longer automatically generating an `aria-labelledby` attribute as this was causing issues with server side rendering
 *   [1.2.0]: Added prettier and using ES2015+ class property syntax for components.
+*   [1.1.0]: Possibly breaking: `<Dropdown>` default style was changed to `display: inline-block` (was `block` before). `block={true}` prop was added to switch to block.
+*   [1.0.0]: Initial release
 
 ## License
 
