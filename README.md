@@ -132,4 +132,4 @@ There are some methods you can use on the `<Dropdown>` element to control it fro
 
 ## Screenshot
 
-![](example/screenshot.png)
+![](src/example/screenshot.png)
