@@ -15,7 +15,7 @@ I don't aim to cover any exotic use case but instead I focus on a minimum of fea
 ## Installation
 
 ```
-npm install --save react-minimal-dropdown
+npm install react-minimal-dropdown
 ```
 or:
 ```
