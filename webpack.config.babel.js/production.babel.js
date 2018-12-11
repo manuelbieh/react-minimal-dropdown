@@ -37,18 +37,14 @@ export default Object.assign({}, config, {
             commonjs: 'react-dom',
             amd: 'react-dom',
         },
-        'prop-types': {
-            root: 'PropTypes',
-            commonjs2: 'prop-types',
-            commonjs: 'prop-types',
-            amd: 'prop-types',
-        },
     },
     output: {
         path: path.resolve(__dirname, '..', 'dist'),
         publicPath: 'dist',
         libraryTarget: 'umd',
-        library: camelCase(require(path.resolve(__dirname, '..', 'package.json')).name),
+        library: camelCase(
+            require(path.resolve(__dirname, '..', 'package.json')).name,
+        ),
         filename: '[name].js',
     },
 });

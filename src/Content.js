@@ -1,36 +1,25 @@
-import React from 'react';
-import css from './Dropdown.css';
+// @flow
+import * as React from 'react';
+import css from './Dropdown.module.css';
 
-let PropTypes;
-if (process.env.NODE_ENV !== 'production') {
-    PropTypes = require('prop-types');
-}
+type ContentPropsT = {
+    children: any,
+    className: string,
+    ref: React.createRef,
+};
 
-export default class Content extends React.PureComponent {
-    static propTypes = {
-        children: PropTypes.any,
-        className: PropTypes.string,
-    };
+const Content = (
+    { children, className = '', ...leftover }: ContentPropsT,
+    ref,
+) => (
+    <div
+        {...leftover}
+        ref={ref}
+        className={`ReactMinimalDropdown__Content ${css.content ||
+            ''} ${className}`}
+    >
+        <div className={css.inner}>{children}</div>
+    </div>
+);
 
-    get DOMNode() {
-        return this.node;
-    }
-
-    setNode = (node) => {
-        this.node = node;
-    };
-
-    render() {
-        const { children, className = '', ...leftover } = this.props;
-
-        return (
-            <div
-                {...leftover}
-                ref={this.setNode}
-                className={`ReactMinimalDropdown__Content ${css.content || ''} ${className}`}
-            >
-                <div className={css.inner}>{children}</div>
-            </div>
-        );
-    }
-}
+export default React.forwardRef(Content);

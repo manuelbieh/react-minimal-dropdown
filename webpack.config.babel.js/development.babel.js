@@ -21,13 +21,15 @@ export default {
             },
             {
                 test: /\.css$/,
-                // exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
                         {
                             loader: 'css-loader',
-                            options: { modules: true, localIdentName: '[name]__[local]' },
+                            options: {
+                                modules: true,
+                                localIdentName: '[name]__[local]',
+                            },
                         },
                     ],
                 }),
@@ -57,7 +59,9 @@ export default {
         path: path.resolve(__dirname, '..', 'example'),
         publicPath: 'example',
         libraryTarget: 'umd',
-        library: camelCase(require(path.resolve(__dirname, '..', 'package.json')).name),
+        library: camelCase(
+            require(path.resolve(__dirname, '..', 'package.json')).name,
+        ),
         filename: '[name].js',
     },
 };
