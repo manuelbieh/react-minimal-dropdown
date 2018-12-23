@@ -5,7 +5,7 @@ import css from './Dropdown.module.css';
 type ContentPropsT = {
     children: any,
     className: string,
-    ref: React.createRef,
+    ref: typeof React.createRef,
 };
 
 const Content = (

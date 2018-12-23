@@ -50,7 +50,8 @@ class Example extends React.PureComponent {
                     <h2>Options</h2>
 
                     <p>
-                        Gap:<br />
+                        Gap:
+                        <br />
                         <input
                             type="range"
                             min={0}
@@ -83,16 +84,21 @@ class Example extends React.PureComponent {
                     </p>
 
                     <pre>
-                        &lt;Dropdown<br />
-                        {'    '}direction="left|top|bottom|right"<br />
+                        &lt;Dropdown
+                        <br />
+                        {'    '}direction=&quot;left|top|bottom|right&quot;
+                        <br />
                         {'    '}beak={`{${JSON.stringify(beak)}}`}
                         <br />
                         {'    '}adjust={`{${JSON.stringify(adjust)}}`}
                         <br />
-                        {'    '}gap={`{${gap}}`}&gt;<br />
-                        {'    '}&lt;Trigger&gt;Open&lt;Trigger&gt;<br />
+                        {'    '}gap={`{${gap}}`}&gt;
+                        <br />
+                        {'    '}&lt;Trigger&gt;Open&lt;Trigger&gt;
+                        <br />
                         {'    '}&lt;Content&gt;Content to be
-                        shown&lt;Content&gt;<br />
+                        shown&lt;Content&gt;
+                        <br />
                         &lt;/Dropdown&gt;
                     </pre>
 
@@ -109,7 +115,8 @@ class Example extends React.PureComponent {
                             >
                                 <Trigger id="my-id">Open left</Trigger>
                                 <Content>
-                                    I am the <br />Dropdown content
+                                    I am the <br />
+                                    Dropdown content
                                 </Content>
                             </Dropdown>
                             <Dropdown
@@ -121,7 +128,8 @@ class Example extends React.PureComponent {
                             >
                                 <Trigger>Open top</Trigger>
                                 <Content>
-                                    I am the <br />Dropdown content
+                                    I am the <br />
+                                    Dropdown content
                                 </Content>
                             </Dropdown>
                             <Dropdown
@@ -133,7 +141,8 @@ class Example extends React.PureComponent {
                             >
                                 <Trigger>Open bottom</Trigger>
                                 <Content>
-                                    I am the <br />Dropdown content
+                                    I am the <br />
+                                    Dropdown content
                                 </Content>
                             </Dropdown>
                             <Dropdown
@@ -145,7 +154,8 @@ class Example extends React.PureComponent {
                             >
                                 <Trigger>Open right</Trigger>
                                 <Content>
-                                    I am the <br />Dropdown content
+                                    I am the <br />
+                                    Dropdown content
                                 </Content>
                             </Dropdown>
                         </div>
@@ -162,7 +172,8 @@ class Example extends React.PureComponent {
                             >
                                 <Trigger>Open top left</Trigger>
                                 <Content>
-                                    I am the <br />Dropdown content
+                                    I am the <br />
+                                    Dropdown content
                                 </Content>
                             </Dropdown>
                             <Dropdown
@@ -175,7 +186,8 @@ class Example extends React.PureComponent {
                             >
                                 <Trigger>Open top center</Trigger>
                                 <Content>
-                                    I am the <br />Dropdown content
+                                    I am the <br />
+                                    Dropdown content
                                 </Content>
                             </Dropdown>
                             <Dropdown
@@ -188,7 +200,8 @@ class Example extends React.PureComponent {
                             >
                                 <Trigger>Open top right</Trigger>
                                 <Content>
-                                    I am the <br />Dropdown content
+                                    I am the <br />
+                                    Dropdown content
                                 </Content>
                             </Dropdown>
                         </div>
@@ -204,10 +217,13 @@ class Example extends React.PureComponent {
                                 show
                             >
                                 <Trigger>
-                                    Open<br /> left<br /> top
+                                    Open
+                                    <br /> left
+                                    <br /> top
                                 </Trigger>
                                 <Content>
-                                    I am the <br />Dropdown content
+                                    I am the <br />
+                                    Dropdown content
                                 </Content>
                             </Dropdown>
                             <Dropdown
@@ -219,10 +235,13 @@ class Example extends React.PureComponent {
                                 show
                             >
                                 <Trigger>
-                                    Open<br /> left<br /> center
+                                    Open
+                                    <br /> left
+                                    <br /> center
                                 </Trigger>
                                 <Content>
-                                    I am the <br />Dropdown content
+                                    I am the <br />
+                                    Dropdown content
                                 </Content>
                             </Dropdown>
                             <Dropdown
@@ -234,10 +253,13 @@ class Example extends React.PureComponent {
                                 show
                             >
                                 <Trigger>
-                                    Open<br /> left<br /> bottom
+                                    Open
+                                    <br /> left
+                                    <br /> bottom
                                 </Trigger>
                                 <Content>
-                                    I am the <br />Dropdown content
+                                    I am the <br />
+                                    Dropdown content
                                 </Content>
                             </Dropdown>
                         </div>
@@ -257,7 +279,8 @@ class Example extends React.PureComponent {
                             >
                                 <Trigger>Top center</Trigger>
                                 <Content>
-                                    I am the <br />Dropdown content
+                                    I am the <br />
+                                    Dropdown content
                                 </Content>
                             </Dropdown>
                         </div>

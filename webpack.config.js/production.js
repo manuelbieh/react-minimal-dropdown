@@ -1,12 +1,13 @@
-import path from 'path';
-import config from './development.babel';
-import camelCase from 'uppercamelcase';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+const path = require('path');
+const config = require('./development');
+const camelCase = require('uppercamelcase');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-export default Object.assign({}, config, {
+module.exports = Object.assign({}, config, {
     entry: {
         index: './src/Dropdown.js',
     },
+    mode: 'production',
     module: {
         rules: [
             {
@@ -39,7 +40,7 @@ export default Object.assign({}, config, {
         },
     },
     output: {
-        path: path.resolve(__dirname, '..', 'dist'),
+        path: path.resolve(__dirname, '..'),
         publicPath: 'dist',
         libraryTarget: 'umd',
         library: camelCase(

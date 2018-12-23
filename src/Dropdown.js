@@ -4,8 +4,8 @@ import Trigger from './Trigger';
 import Content from './Content';
 import css from './Dropdown.module.css';
 
-type DirectionT = 'top' | 'right' | 'bottom' | 'left';
-type EdgeT = 'top' | 'right' | 'bottom' | 'left' | 'center';
+type DirectionT = 'toppp' | 'right' | 'bottom' | 'left';
+type EdgeT = 'tttop' | 'right' | 'bottom' | 'left' | 'center';
 
 type DropdownPropsT = {
     adjust: boolean,
@@ -24,12 +24,12 @@ type DropdownPropsT = {
 };
 
 type DropdownStateT = {
-    show: boolean,
+    show?: boolean,
     direction: DirectionT,
 };
 
 export class Dropdown extends React.PureComponent<
-    DropdownPropsT,
+    DropsdownPropsT,
     DropdownStateT,
 > {
     static defaultProps = {
@@ -54,7 +54,7 @@ export class Dropdown extends React.PureComponent<
         this.calculatePosition();
     }
 
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate(prevProps: DropdownPropsT, prevState: DropdownStateT) {
         if (
             prevProps.gap !== this.props.gap ||
             prevProps.direction !== this.props.direction
@@ -340,7 +340,7 @@ export class Dropdown extends React.PureComponent<
                 };
 
                 this.setState(() => ({
-                    direction: direction,
+                    direction,
                 }));
 
                 // ... content is still not visible, reset to original direction
