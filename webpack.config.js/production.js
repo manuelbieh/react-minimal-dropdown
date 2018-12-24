@@ -8,7 +8,7 @@ module.exports = Object.assign({}, config, {
     entry: {
         index: './src/Dropdown.js',
     },
-    mode: 'development',
+    mode: 'production',
     module: {
         rules: [
             {

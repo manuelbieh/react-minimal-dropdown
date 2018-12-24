@@ -120,11 +120,12 @@ There are some methods you can use on the `<Dropdown>` element to control it fro
 ## Todo
 
 -   Add some tests
--   Add typings for TypeScript
+-   Add typings for TypeScript and Flow
 -   …
 
 ## Changelog
 
+-   [2.0.0]: Removed deprecated code (callback refs, componentWillReceiveProps, etc), streamlined build process, using Flow instead of PropTypes, removed on(Before|After)(Open|Close) in favor of onOpen and onClose, upgraded to Babel 7, updated all devDependencies
 -   [1.3.1]: No longer automatically generating an `aria-labelledby` attribute as this was causing issues with server side rendering
 -   [1.2.0]: Added prettier and using ES2015+ class property syntax for components.
 -   [1.1.0]: Possibly breaking: `<Dropdown>` default style was changed to `display: inline-block` (was `block` before). `block={true}` prop was added to switch to block.
@@ -132,8 +133,8 @@ There are some methods you can use on the `<Dropdown>` element to control it fro
 
 ## License
 
-[MIT](LICENSE). Copyright (c) 2017 Manuel Bieh.
+[MIT](LICENSE). Copyright (c) 2017-2018 Manuel Bieh.
 
-## Screenshot
+## Preview
 
-![](example/screenshot.png)
+![](src/example/screenshot.png)
