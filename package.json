@@ -4,7 +4,7 @@
   "description": "Simple, minimal and unobtrusive dropdown for React",
   "main": "dist/index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --watch --open --open-page=./example",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --watch --open",
     "build:example": "cross-env webpack",
     "build": "cross-env NODE_ENV=production webpack -p --env=production",
     "precommit": "lint-staged",
@@ -38,12 +38,12 @@
   "author": "Manuel Bieh <info@manuelbieh.de> (https://github.com/manuelbieh)",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.2.0",
+    "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.2.3",
     "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-modules-commonjs": "^7.2.0",
-    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
     "@babel/preset-flow": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@manuel-bieh/layout": "^1.0.0",
@@ -57,8 +57,8 @@
     "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "classnames": "^2.2.5",
     "cross-env": "^5.2.0",
-    "css-loader": "^2.0.0",
-    "eslint": "^5.10.0",
+    "css-loader": "^2.0.2",
+    "eslint": "^5.11.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-config-wiremore": "^2.2.1",
     "eslint-plugin-babel": "^5.3.0",
@@ -69,7 +69,7 @@
     "eslint-plugin-react-hooks": "^0.0.0",
     "eslint-plugin-security": "1.4.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "flow-bin": "^0.88.0",
+    "flow-bin": "^0.89.0",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.2.0",
     "lint-staged": "^8.1.0",
@@ -81,7 +81,7 @@
     "uppercamelcase": "^3.0.0",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.13"
   },
   "peerDependencies": {
     "react": "^16.3.0"

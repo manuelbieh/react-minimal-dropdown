@@ -5,7 +5,7 @@ import Content from './Content';
 import css from './Dropdown.module.css';
 
 type DirectionT = 'toppp' | 'right' | 'bottom' | 'left';
-type EdgeT = 'tttop' | 'right' | 'bottom' | 'left' | 'center';
+type EdgeT = 'top' | 'right' | 'bottom' | 'left' | 'center';
 
 type DropdownPropsT = {
     adjust: boolean,
@@ -29,7 +29,7 @@ type DropdownStateT = {
 };
 
 export class Dropdown extends React.PureComponent<
-    DropsdownPropsT,
+    DropdownPropsT,
     DropdownStateT,
 > {
     static defaultProps = {
@@ -157,7 +157,7 @@ export class Dropdown extends React.PureComponent<
             : 'vertical';
     };
 
-    getEdgePosition = (edge = this.props.edge) => {
+    getEdgePosition = (edge: EdgeT = this.props.edge) => {
         const triggerBounds = this.getTriggerBounds();
         const wrapperBounds = this.getWrapperBounds();
         const contentBounds = this.getContentBounds();
@@ -208,8 +208,8 @@ export class Dropdown extends React.PureComponent<
     };
 
     getContentPosition = (
-        direction = this.props.direction,
-        gap = this.props.gap,
+        direction: DirectionT = this.props.direction,
+        gap: ?number = this.props.gap,
     ) => {
         const triggerBounds = this.getTriggerBounds();
         const wrapperBounds = this.getWrapperBounds();
@@ -255,7 +255,9 @@ export class Dropdown extends React.PureComponent<
         }
     };
 
-    shouldContentBeAdjusted = (direction = this.props.direction) => {
+    shouldContentBeAdjusted = (
+        direction: DirectionT = this.props.direction,
+    ) => {
         const contentBounds = this.getContentBounds();
 
         const clientWidth = Math.max(
