@@ -80,7 +80,8 @@
     "uppercamelcase": "^3.0.0",
     "webpack": "^4.28.2",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.13"
+    "webpack-dev-server": "^3.1.13",
+    "write-file-webpack-plugin": "^4.5.0"
   },
   "peerDependencies": {
     "react": "^16.3.0"

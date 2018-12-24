@@ -4,6 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const camelCase = require('uppercamelcase');
+const WriteFilePlugin = require('write-file-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -54,9 +55,10 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: 'src/example/example.html',
         }),
+        new WriteFilePlugin(),
     ],
     output: {
-        path: path.resolve(__dirname, '..', 'example'),
+        path: path.resolve(__dirname, '..', 'dist', 'example'),
         // publicPath: 'example',
         libraryTarget: 'umd',
         library: camelCase(
