@@ -1,14 +1,15 @@
-import path from 'path';
-import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
-import camelCase from 'uppercamelcase';
+const path = require('path');
+const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+const camelCase = require('uppercamelcase');
 
-export default {
+module.exports = {
     entry: {
         example: './src/example/example.js',
     },
+    mode: 'development',
     stats: {
         children: false,
     },
@@ -21,13 +22,15 @@ export default {
             },
             {
                 test: /\.css$/,
-                // exclude: /node_modules/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: [
                         {
                             loader: 'css-loader',
-                            options: { modules: true, localIdentName: '[name]__[local]' },
+                            options: {
+                                modules: true,
+                                localIdentName: '[name]__[local]',
+                            },
                         },
                     ],
                 }),
@@ -40,10 +43,9 @@ export default {
         port: 9000,
     },
     plugins: [
-        // new webpack.HotModuleReplacementPlugin(),
         new CaseSensitivePathsPlugin(),
         new ExtractTextPlugin({
-            filename: 'css/[name].css',
+            filename: '[name].css',
         }),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
@@ -55,9 +57,11 @@ export default {
     ],
     output: {
         path: path.resolve(__dirname, '..', 'example'),
-        publicPath: 'example',
+        // publicPath: 'example',
         libraryTarget: 'umd',
-        library: camelCase(require(path.resolve(__dirname, '..', 'package.json')).name),
+        library: camelCase(
+            require(path.resolve(__dirname, '..', 'package.json')).name,
+        ),
         filename: '[name].js',
     },
 };

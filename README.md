@@ -1,6 +1,6 @@
 # ⚛ React Minimal Dropdown
 
-Pretty straightforward: I needed a tiny **dropdown** component which was good for exactly one thing: a user clicks on a trigger and content appears next to it. That's it. No built-in `<select>` imitation or whatever. Just a plain dropdown. I looked at dozens of existing React dropdown components but all of them were either overcomplicated (for my needs) or unmaintained or had a really bad code quality (or all of it). The result: **React Minimal Dropdown**.
+Pretty straightforward: I needed a tiny **dropdown** (or as others might say **popover**) component which was good for exactly one thing: a user clicks on a trigger and content appears directly next to it. That's it. No built-in `<select>` imitation or whatever. Just a plain dropdown. I looked at dozens of existing React dropdown components but all of them were either overcomplicated (for my needs) or unmaintained or had a really bad code quality (or all of it). The result: **React Minimal Dropdown**.
 
 You can configure a direction, you have a very little and neutral default styling and that's it. Use it if you need the simplest possible Dropdown with zero dependencies, adjust and style it to your needs and be happy :)
 
@@ -17,7 +17,9 @@ I don't aim to cover any exotic use case but instead I focus on a minimum of fea
 ```
 npm install react-minimal-dropdown
 ```
+
 or:
+
 ```
 yarn add react-minimal-dropdown
 ```
@@ -26,9 +28,9 @@ yarn add react-minimal-dropdown
 
 There are 3 components you must use to get `Dropdown` functionality:
 
-*   `<Dropdown>` – as mandatory wrapper
-*   `<Trigger>` – acts as trigger to show and hide content
-*   `<Content>` – the content to be shown
+-   `<Dropdown>` – as mandatory wrapper
+-   `<Trigger>` – acts as trigger to show and hide content
+-   `<Content>` – the content to be shown
 
 `Trigger` and `Content` are defined as static members of the `Dropdown` component so you only have to import `Dropdown` and can then use it as `<Dropdown.Trigger>` and `<Dropdown.Content>` in your JSX instead of having to import all of them explicitly (which is also possible though).
 
@@ -42,47 +44,50 @@ https://manuelbieh.github.io/react-minimal-dropdown/example/
 ```js
 import React from 'react';
 import Dropdown from 'react-minimal-dropdown';
+import 'react-minimal-dropdown/dist/index.css';
 
 // or import and use the components directly:
 // import { Dropdown, Trigger, Content } from 'react-minimal dropdown'
 
 export const Example = () => {
-  return (
-    <Dropdown direction="right" beak>
-      <Dropdown.Trigger>Click me!</Dropdown.Trigger>
-      <Dropdown.Content>You clicked the dropdown trigger!</Dropdown.Content>
-    </Dropdown>
-  );
+    return (
+        <Dropdown direction="right" beak>
+            <Dropdown.Trigger>Click me!</Dropdown.Trigger>
+            <Dropdown.Content>
+                You clicked the dropdown trigger!
+            </Dropdown.Content>
+        </Dropdown>
+    );
 };
 ```
 
-**Attention:** Don't forget to also include the css file from `react-minimal-dropdown/dist/css/index.css`!
+**Attention:** Don't forget to also include the css file from `react-minimal-dropdown/dist/index.css`!
 
 ### Styling
 
 Internally RMD uses CSS Modules for scoped styling so you should not be worried that including RMD might break your CSS. If you want to overwrite the existing default styling you can use the predefined BEM like CSS classes:
 
-*   `ReactMinimalDropdown`
-*   `ReactMinimalDropdown__Content`
-*   `ReactMinimalDropdown__Trigger`.
+-   `ReactMinimalDropdown`
+-   `ReactMinimalDropdown__Content`
+-   `ReactMinimalDropdown__Trigger`.
 
 Also there are modifier classes both for the direction …
 
-*   `ReactMinimalDropdown--top`
-*   `ReactMinimalDropdown--right`
-*   `ReactMinimalDropdown--bottom`
-*   `ReactMinimalDropdown--left`
+-   `ReactMinimalDropdown--top`
+-   `ReactMinimalDropdown--right`
+-   `ReactMinimalDropdown--bottom`
+-   `ReactMinimalDropdown--left`
 
 and the open state:
 
-*   `ReactMinimalDropdown--isOpen`
-*   `ReactMinimalDropdown--isClosed`
+-   `ReactMinimalDropdown--isOpen`
+-   `ReactMinimalDropdown--isClosed`
 
 ### Options
 
-| Prop         | Default  | Description                                                                                                                                                                            |
-| ------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `adjust`       | `true`   | Adjust content position if it is out of viewport. The component will try to open it the opposite direction then.                                                                                 |
+| Prop           | Default  | Description                                                                                                                                                                            |
+| -------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `adjust`       | `true`   | Adjust content position if it is out of viewport. The component will try to open it the opposite direction then.                                                                       |
 | `beak`         | `false`  | Show a beak/triangle                                                                                                                                                                   |
 | `direction`    | `bottom` | Where to open the dropdown (Possible values: `top`, `right`, `bottom`, `left`)                                                                                                         |
 | `edge`         | center   | Where to align the content. (Can be `left`, `center`, `right` when `direction` is set to `top` or `bottom` and `bottom`, `center`, `top` when `direction` is set to `left` or `right`) |
@@ -95,12 +100,10 @@ and the open state:
 
 You can trigger callbacks on certain events. Just use the following props on the `<Dropdown>` element:
 
-| Event         | Description                                            |
-| ------------- | ------------------------------------------------------ |
-| onBeforeOpen  | Fires **before** `this.state.show` gets set to `true`  |
-| onBeforeClose | Fires **before** `this.state.show` gets set to `false` |
-| onAfterOpen   | Fires **after** `this.state.show` gets set to `true`   |
-| onAfterClose  | Fires **after** `this.state.show` gets set to `false`  |
+| Event   | Description                                           |
+| ------- | ----------------------------------------------------- |
+| onOpen  | Fires **after** `this.state.show` gets set to `true`  |
+| onClose | Fires **after** `this.state.show` gets set to `false` |
 
 ### API
 
@@ -116,20 +119,22 @@ There are some methods you can use on the `<Dropdown>` element to control it fro
 
 ## Todo
 
-*   Add some tests
-*   Add typings for TypeScript
-*   …
+-   Add some tests
+-   Add typings for TypeScript and Flow
+-   …
 
 ## Changelog
-*   [1.3.1]: No longer automatically generating an `aria-labelledby` attribute as this was causing issues with server side rendering
-*   [1.2.0]: Added prettier and using ES2015+ class property syntax for components.
-*   [1.1.0]: Possibly breaking: `<Dropdown>` default style was changed to `display: inline-block` (was `block` before). `block={true}` prop was added to switch to block.
-*   [1.0.0]: Initial release
+
+-   [2.0.0]: Removed deprecated code (callback refs, componentWillReceiveProps, etc), streamlined build process, using Flow instead of PropTypes, removed on(Before|After)(Open|Close) in favor of onOpen and onClose, upgraded to Babel 7, updated all devDependencies
+-   [1.3.1]: No longer automatically generating an `aria-labelledby` attribute as this was causing issues with server side rendering
+-   [1.2.0]: Added prettier and using ES2015+ class property syntax for components.
+-   [1.1.0]: Possibly breaking: `<Dropdown>` default style was changed to `display: inline-block` (was `block` before). `block={true}` prop was added to switch to block.
+-   [1.0.0]: Initial release
 
 ## License
 
-[MIT](LICENSE). Copyright (c) 2017 Manuel Bieh.
+[MIT](LICENSE). Copyright (c) 2017-2018 Manuel Bieh.
 
-## Screenshot
+## Preview
 
 ![](src/example/screenshot.png)

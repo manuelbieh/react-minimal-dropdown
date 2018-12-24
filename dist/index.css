@@ -1,0 +1,135 @@
+._1RJJd3 {
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    display: inline-block;
+}
+
+._1RJJd3._1WZKTe {
+    display: block;
+}
+
+._1RJJd3._2_XGCL .WY1T9A {
+    display: block;
+}
+
+._1RJJd3._2FolOH .WY1T9A {
+    display: none;
+}
+
+._1RJJd3 .WY1T9A {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    position: absolute;
+    text-align: left;
+    z-index: 16;
+}
+
+._1RJJd3 ._2Wi6OC {
+    z-index: 1;
+}
+
+._1RJJd3 ._2Wi6OC._1dmG3o {
+    position: relative;
+}
+
+._1RJJd3 ._2Wi6OC._1dmG3o:after {
+    border-bottom: 2px solid inherit;
+    border-right: 2px solid inherit;
+    content: '';
+    display: block;
+    height: 6px;
+    margin-top: -6px;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: rotate(45deg);
+    width: 6px;
+}
+
+._1RJJd3 ._3dt9X- {
+    background: white;
+    border-radius: inherit;
+    margin: -8px;
+    max-height: 30vh;
+    min-width: 170px;
+    max-width: calc(100vw - 64px);
+    padding: 8px;
+    position: relative;
+    z-index: 16;
+}
+
+._2AQ5xi .WY1T9A:before {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+    background: white;
+    content: '';
+    height: 16px;
+    position: absolute;
+    transform: rotate(45deg);
+    width: 16px;
+}
+
+.Gw9Yvk._2AQ5xi > .WY1T9A {
+    margin-bottom: 13px;
+}
+
+.Gw9Yvk._2AQ5xi > .WY1T9A:before {
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    bottom: -9px;
+    left: calc(50% - 8px);
+}
+
+.Vf9qkU._2AQ5xi > .WY1T9A {
+    margin-left: 13px;
+}
+
+.Vf9qkU._2AQ5xi > .WY1T9A:before {
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    top: calc(50% - 8px);
+    left: -9px;
+}
+
+._3v_Fzm._2AQ5xi > .WY1T9A {
+    margin-top: 13px;
+}
+
+._3v_Fzm._2AQ5xi > .WY1T9A:before {
+    border-left-width: 1px;
+    border-top-width: 1px;
+    top: -9px;
+    left: calc(50% - 8px);
+}
+
+._14_2N7._2AQ5xi > .WY1T9A {
+    margin-right: 13px;
+}
+
+._14_2N7._2AQ5xi > .WY1T9A:before {
+    border-right-width: 1px;
+    border-top-width: 1px;
+    top: calc(50% - 8px);
+    right: -9px;
+    left: auto;
+}
+
+._1OrMCN._2AQ5xi > .WY1T9A:before {
+    left: 10%;
+}
+.eXfmiz._2AQ5xi > .WY1T9A:before {
+    left: auto;
+    right: 10%;
+}
+
+.IhwHRS._2AQ5xi > .WY1T9A:before {
+    top: auto;
+    bottom: calc(15% + 8px);
+}
+._3vwnns._2AQ5xi > .WY1T9A:before {
+    top: calc(15% + 8px);
+    bottom: auto;
+}

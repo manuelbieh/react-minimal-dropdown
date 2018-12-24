@@ -1,43 +1,38 @@
-import React from 'react';
-import css from './Dropdown.css';
+// @flow
+import * as React from 'react';
+import css from './Dropdown.module.css';
 
-let PropTypes;
-if (process.env.NODE_ENV !== 'production') {
-    PropTypes = require('prop-types');
-}
+type TriggerPropsT = {
+    arrow: boolean,
+    className?: string,
+    children: any,
+    ref: React.createRef,
+    show?: boolean,
+    toggle: () => void,
+};
 
-export default class Trigger extends React.PureComponent {
-    static propTypes = {
-        className: PropTypes.string,
-        children: PropTypes.any,
-        arrow: PropTypes.bool,
-        toggle: PropTypes.func,
-        show: PropTypes.bool,
-    };
+const Trigger = (
+    {
+        children,
+        className = '',
+        toggle,
+        show,
+        arrow,
+        ...leftover
+    }: TriggerPropsT,
+    ref,
+) => (
+    <div
+        {...leftover}
+        ref={ref}
+        onClick={toggle}
+        className={`ReactMinimalDropdown__Trigger ${css.trigger ||
+            ''} ${className} ${(arrow && css.arrow) || ''}`}
+        aria-expanded={show}
+        aria-haspopup="true"
+    >
+        {children}
+    </div>
+);
 
-    get DOMNode() {
-        return this.node;
-    }
-
-    setNode = (node) => {
-        this.node = node;
-    };
-
-    render() {
-        const { children, className = '', toggle, show, arrow, ...leftover } = this.props;
-
-        return (
-            <div
-                {...leftover}
-                ref={this.setNode}
-                onClick={toggle}
-                className={`ReactMinimalDropdown__Trigger ${css.trigger ||
-                    ''} ${className} ${(arrow && css.arrow) || ''}`}
-                aria-expanded={show}
-                aria-haspopup="true"
-            >
-                {children}
-            </div>
-        );
-    }
-}
+export default React.forwardRef(Trigger);

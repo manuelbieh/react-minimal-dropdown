@@ -1,3 +1,3 @@
 module.exports = (env = 'development') => {
-    return require(`./${env}.babel`);
+    return require(`./${env}`);
 };
