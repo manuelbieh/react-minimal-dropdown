@@ -12,6 +12,11 @@ I don't aim to cover any exotic use case but instead I focus on a minimum of fea
 
 (Inspired by [classnames](https://github.com/JedWatson/classnames#project-philosophy))
 
+## Demo
+
+Quick demo wich shows the available props can be found here:
+[https://react-minimal-dropdown.surge.sh](https://react-minimal-dropdown.surge.sh)
+
 ## Installation
 
 ```
