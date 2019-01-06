@@ -19,8 +19,7 @@
     "url": "https://github.com/manuelbieh/react-minimal-dropdown.git"
   },
   "files": [
-    "dist/index.js",
-    "dist/css/index.css",
+    "dist/*",
     "src/*",
     ".babelrc",
     ".eslintrc.json",
