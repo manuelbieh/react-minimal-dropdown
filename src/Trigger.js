@@ -6,7 +6,7 @@ type TriggerPropsT = {
     arrow: boolean,
     className?: string,
     children: any,
-    ref: React.createRef,
+    ref: typeof React.createRef,
     show?: boolean,
     toggle: () => void,
 };
@@ -35,4 +35,4 @@ const Trigger = (
     </div>
 );
 
-export default React.forwardRef(Trigger);
+export default React.forwardRef<TriggerPropsT, any>(Trigger);

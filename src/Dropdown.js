@@ -4,7 +4,7 @@ import Trigger from './Trigger';
 import Content from './Content';
 import css from './Dropdown.module.css';
 
-type DirectionT = 'toppp' | 'right' | 'bottom' | 'left';
+type DirectionT = 'top' | 'right' | 'bottom' | 'left';
 type EdgeT = 'top' | 'right' | 'bottom' | 'left' | 'center';
 
 type DropdownPropsT = {
@@ -18,14 +18,23 @@ type DropdownPropsT = {
     gap: number,
     ignoreResize: boolean,
     ignoreScroll: boolean,
-    onOpen?: (e: SyntheticEvent<HTMLElement>) => void,
-    onClose?: (e: SyntheticEvent<HTMLElement>) => void,
+    onOpen?: (any) => void,
+    onClose?: (any) => void,
     show?: boolean,
 };
 
 type DropdownStateT = {
     show?: boolean,
     direction: DirectionT,
+};
+
+const fallbackBounds = {
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    height: 0,
+    width: 0,
 };
 
 export class Dropdown extends React.PureComponent<
@@ -55,6 +64,8 @@ export class Dropdown extends React.PureComponent<
     }
 
     componentDidUpdate(prevProps: DropdownPropsT, prevState: DropdownStateT) {
+        const { onOpen, onClose } = this.props;
+
         if (
             prevProps.gap !== this.props.gap ||
             prevProps.direction !== this.props.direction
@@ -65,17 +76,17 @@ export class Dropdown extends React.PureComponent<
         if (
             this.state.show === true &&
             prevState.show === false &&
-            typeof this.props.onOpen === 'function'
+            typeof onOpen === 'function'
         ) {
-            return this.props.onOpen(this);
+            return onOpen(this);
         }
 
         if (
             this.state.show === false &&
             prevState.show === true &&
-            typeof this.props.onClose === 'function'
+            typeof onClose === 'function'
         ) {
-            return this.props.onClose(this);
+            return onClose(this);
         }
     }
 
@@ -83,9 +94,9 @@ export class Dropdown extends React.PureComponent<
         this.removeEvents();
     }
 
-    wrapperEl = React.createRef();
-    contentEl = React.createRef();
-    triggerEl = React.createRef();
+    wrapperEl: { current: null | HTMLDivElement } = React.createRef();
+    contentEl: { current: null | HTMLDivElement } = React.createRef();
+    triggerEl: { current: null | HTMLDivElement } = React.createRef();
 
     addEvents = () => {
         window.addEventListener('click', this.closeOnClick);
@@ -109,15 +120,21 @@ export class Dropdown extends React.PureComponent<
         window.removeEventListener('scroll', this.calculatePosition);
     };
 
-    closeOnEsc = (e) => {
+    closeOnEsc = (e: SyntheticKeyboardEvent<any>) => {
         if (e.keyCode === 27) {
             this.hide();
         }
     };
 
-    closeOnClick = (e) => {
+    closeOnClick = (e: SyntheticEvent<any>) => {
+        if (!this.wrapperEl.current) {
+            return;
+        }
+
         if (
             e.target !== this.wrapperEl &&
+            // see: https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682
+            // $FlowIssue
             !this.wrapperEl.current.contains(e.target) &&
             this.state.show
         ) {
@@ -125,7 +142,15 @@ export class Dropdown extends React.PureComponent<
         }
     };
 
-    setContentPosition = ({ top, right, bottom, left } = {}) => {
+    setContentPosition = ({
+        top,
+        right,
+        bottom,
+        left,
+    }: { ['top' | 'right' | 'bottom' | 'left']: ?number } = {}) => {
+        if (!this.contentEl.current) {
+            return;
+        }
         this.contentEl.current.style.top =
             typeof top === 'number' ? `${top}px` : 'auto';
         this.contentEl.current.style.right =
@@ -137,17 +162,28 @@ export class Dropdown extends React.PureComponent<
     };
 
     getWrapperBounds = () => {
+        if (!this.wrapperEl.current) {
+            return fallbackBounds;
+        }
         return this.wrapperEl.current.getBoundingClientRect();
     };
 
     getTriggerBounds = () => {
+        if (!this.triggerEl.current) {
+            return fallbackBounds;
+        }
         return this.triggerEl.current.getBoundingClientRect();
     };
 
     getContentBounds() {
+        if (!this.contentEl.current) {
+            return fallbackBounds;
+        }
         this.contentEl.current.style.display = 'block';
         const bounds = this.contentEl.current.getBoundingClientRect();
-        this.contentEl.current.style.display = null;
+        // $FlowIssue
+        this.contentEl.current.style.display = '';
+
         return bounds;
     }
 
@@ -161,6 +197,10 @@ export class Dropdown extends React.PureComponent<
         const triggerBounds = this.getTriggerBounds();
         const wrapperBounds = this.getWrapperBounds();
         const contentBounds = this.getContentBounds();
+
+        if (!triggerBounds || !wrapperBounds || !contentBounds) {
+            return {};
+        }
 
         if (this.getDirectionMode() === 'horizontal') {
             if (edge === 'top') {
@@ -261,6 +301,7 @@ export class Dropdown extends React.PureComponent<
         const contentBounds = this.getContentBounds();
 
         const clientWidth = Math.max(
+            // $FlowFixMe
             document.documentElement.clientWidth,
             window.innerWidth || 0,
         );
@@ -286,6 +327,7 @@ export class Dropdown extends React.PureComponent<
         }
 
         const clientHeight = Math.max(
+            // $FlowFixMe
             document.documentElement.clientHeight,
             window.innerHeight || 0,
         );
@@ -312,7 +354,7 @@ export class Dropdown extends React.PureComponent<
         return false;
     };
 
-    adjustContentPosition = (direction = this.props.direction) => {
+    adjustContentPosition = (direction: DirectionT = this.props.direction) => {
         if (this.props.adjust && this.shouldContentBeAdjusted()) {
             const opposites = {
                 left: 'right',

@@ -4,11 +4,13 @@
   "description": "Simple, minimal and unobtrusive dropdown for React",
   "main": "dist/index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --watch --open",
+    "//": "disableHostCheck is a temporary hack for this issue: https://github.com/webpack/webpack-dev-server/issues/1604",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline --watch --open --disableHostCheck",
     "build:example": "cross-env webpack",
     "build": "cross-env NODE_ENV=production webpack -p --env=production",
     "precommit": "lint-staged",
-    "postpublish": "git push --tags && git push"
+    "postpublish": "git push --tags && git push",
+    "flow": "flow"
   },
   "keywords": [
     "react",

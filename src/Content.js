@@ -22,4 +22,4 @@ const Content = (
     </div>
 );
 
-export default React.forwardRef(Content);
+export default React.forwardRef<ContentPropsT, any>(Content);
